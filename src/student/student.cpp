@@ -4,6 +4,9 @@
 #include <locale>
 #include <algorithm>
 
+int Student::idCount = 0;
+const std::string Student::defaultstr = "N/A";
+
                     // VERIFY FUNCTIONS BODIES
 
 bool Student::verifyName(std::string name) const {
@@ -104,4 +107,132 @@ bool Student::verifyGender(std::string gender) const {
     gender.erase(std::remove(gender.begin(), gender.end(), ' '), gender.end());
     return    (gender == "Male" || gender == "male" || gender == "M" || gender == "m" ||
             gender == "Female" || gender == "female" || gender == "F" || gender == "f");
+}
+
+bool Student::verifyInput(const std::string& firstName, const std::string& familyName, const std::string& email,
+                 const std::string& phoneNumber, const std::string& gender, int academicYear) const {
+    return (verifyName(firstName) && verifyName(familyName) && verifyEmail(email) &&
+            verifyGender(gender) && verifyAcademicYear(academicYear) && verifyPhoneNumber(phoneNumber));
+}
+
+bool Student::isInitialized() const {
+    return (id > 0);
+}
+
+                    // CONSTRUCTOR AND DESTRUCTOR
+
+Student::Student(const std::string& firstName, const std::string& familyName, const std::string& email,
+                 const std::string& phoneNumber, const std::string& gender, int academicYear)
+                 : id(0), firstName(defaultstr), familyName(defaultstr), email(defaultstr),
+                     phoneNumber(defaultstr), gender(defaultstr), academicYear(0)
+{   
+    if (verifyInput(firstName, familyName, email, phoneNumber, gender, academicYear)) 
+    {
+        setFirstName(firstName);
+        setFamilyName(familyName);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setAcademicYear(academicYear);
+        setId();
+    }
+}
+
+Student::Student() : id(0), firstName(defaultstr), familyName(defaultstr), email(defaultstr),
+                     phoneNumber(defaultstr), gender(defaultstr), academicYear(0) {}
+
+Student::~Student() {}
+
+                    // GETTERS
+
+int Student::getId() const {
+    return id;
+}
+
+const std::string& Student::getFirstName() const {
+    return firstName;
+}
+
+const std::string& Student::getFamilyName() const {
+    return familyName;
+}
+
+const std::string& Student::getEmail() const {
+    return email;
+}
+
+const std::string& Student::getPhoneNumber() const {
+    return phoneNumber;
+}
+
+const std::string& Student::getGender() const {
+    return gender;
+}
+
+int Student::getAcademicYear() const {
+    return academicYear;
+}
+
+int Student::getIdCount() {
+    return idCount;
+}
+
+                    // SETTERS
+
+void Student::setId() {
+    this->id = ++idCount;
+}
+
+void Student::setFirstName(const std::string& firstName) {
+    if (verifyName(firstName)) {
+        this->firstName = firstName;
+    }
+}
+
+void Student::setFamilyName(const std::string& familyName) {
+    if (verifyName(familyName)) {
+        this->familyName = familyName;
+    }
+}
+
+void Student::setEmail(const std::string& email) {
+    if (verifyEmail(email)) {
+        this->email = email;
+    }
+}
+
+void Student::setPhoneNumber(const std::string& phoneNumber) {
+    if (verifyPhoneNumber(phoneNumber)) {
+        this->phoneNumber = phoneNumber;
+    }
+}
+
+void Student::setGender(const std::string& gender) {
+    if (verifyGender(gender)) {
+        this->gender = gender;
+    }
+}
+
+void Student::setAcademicYear(int academicYear) {
+    if (verifyAcademicYear(academicYear)) {
+        this->academicYear = academicYear;
+    }
+}
+
+void Student::setStudent(const std::string &firstName, const std::string &familyName, const std::string &email,
+                         const std::string &phoneNumber, const std::string &gender, int academicYear) {
+    if (verifyInput(firstName, familyName, email, phoneNumber, gender, academicYear) && !isInitialized()) 
+    {
+        setFirstName(firstName);
+        setFamilyName(familyName);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setGender(gender);
+        setAcademicYear(academicYear);
+        setId();
+    }
+}
+
+void Student::display() const {
+    
 }
