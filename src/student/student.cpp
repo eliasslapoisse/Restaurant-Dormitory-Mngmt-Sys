@@ -232,3 +232,14 @@ void Student::setStudent(const std::string &firstName, const std::string &family
         setId();
     }
 }
+
+                    // EQUAL OPERATOR
+bool operator==(const Student& Student1, const Student& Student2) {
+    return (Student1.id           == Student2.id          &&
+            Student1.firstName    == Student2.firstName   &&
+            Student1.familyName   == Student2.familyName  &&
+            Student1.email        == Student2.email       &&
+            Student1.phoneNumber  == Student2.phoneNumber &&
+            Student1.gender       == Student2.gender      &&
+            Student1.academicYear == Student2.academicYear);
+}

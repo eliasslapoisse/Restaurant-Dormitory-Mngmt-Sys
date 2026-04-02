@@ -52,6 +52,9 @@ class Student {
         bool verifyInput(const std::string&, const std::string&, const std::string&,
                          const std::string&, const std::string&, int) const;
         bool isInitialized() const;
+
+                            // EQUAL OPERATOR
+        friend bool operator==(const Student &, const Student &);
 };
 
 #endif

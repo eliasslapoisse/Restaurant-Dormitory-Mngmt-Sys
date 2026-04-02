@@ -38,9 +38,9 @@ class Restaurant {
         dailyMenu weeklyMenu[7];
 
                         // MEAL TRACKING
-        int* ateBreakfast;
-        int* ateLunch;
-        int* ateDinner;
+        std::vector<int> ateBreakfast;
+        std::vector<int> ateLunch;
+        std::vector<int> ateDinner;
 
     public:
                         // CONSTRUCTOR AND DESTRUCTOR
@@ -50,9 +50,6 @@ class Restaurant {
                         // GETTERS
         dailyMenu getDailyMenu(day) const;
         dailyMenu getWeeklyMenu() const;
-        int* getAteBreakfast() const;
-        int* getAteLunch() const;
-        int* getAteDinner() const;
 
                         // SETTERS
         static void setBR_OPEN(int);
@@ -63,6 +60,11 @@ class Restaurant {
         static void setDI_CLOSE(int);
         void setDailyMenu(morningDish, dish, dish);
         void setWeeklyMenu(dailyMenu, dailyMenu, dailyMenu, dailyMenu, dailyMenu, dailyMenu, dailyMenu);
+
+                        // METHODS
+        bool didStudentEatBreakfast(int ID) const;
+        bool didStudentEatLunch(int ID) const;
+        bool didStudentEatDinner(int ID) const;
 };
 
 #endif
