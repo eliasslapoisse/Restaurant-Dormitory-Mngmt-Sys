@@ -91,3 +91,59 @@ rooms, restaurants).
 • Data Structures: Appropriate data structures (arrays, lists, or other
 containers) should be used to store and manage students, rooms, and
 dormitories efficiently, supporting scalability and ease of management.
+
+
+
+
+
+
+
+
+
+
+
+For a complete real-life Qt app, here's everything you'll need beyond the database:
+
+Authentication
+
+Login screen with username/password
+At minimum an admin account
+Maybe different roles (admin, viewer)
+Passwords hashed, not stored plain text
+
+
+Core GUI screens you'll need
+
+Dashboard (overview, occupancy stats)
+Student management (add, edit, remove, search)
+Room assignment (assign student to room, move, unassign)
+Block/Dormitory overview (see all rooms, who's where)
+Restaurant management screen
+
+
+Search & filters
+
+Find student by ID, name
+Find available rooms
+Filter by block, floor, gender, academic year
+
+
+Error handling in UI
+
+What happens if user inputs invalid data in a form
+Feedback messages (success, failure)
+
+
+Reports/Export
+
+Print or export to PDF/Excel — admins will definitely need this
+Room occupancy report
+Student list per block
+
+
+Data validation on UI side
+
+Your C++ classes already validate, but Qt forms need to guide the user with proper input fields, error messages etc.
+
+
+The biggest ones to focus on first are authentication and core GUI screens. Everything else comes after.

@@ -1,15 +1,14 @@
 #include "room.h"
 #include "student.h"
 #include <vector>
+#include "constants.h"
 
 int Room::capacity = 2;
-const int lastFloor = 5;
-const int lastNumber = 48;
 
                     // CONSTRUCTOR AND DESTRUCTOR
 Room::Room(int floor, int number) : floor(0), number(0) {
-    if ((floor >= 0 && floor <= lastFloor) &&
-        (number >= 0  && number <= lastNumber))
+    if ((floor >= 0 && floor <= LAST_FLOOR) &&
+        (number >= 0  && number <= LAST_NUMBER))
     {
         this->floor = floor;
         this->number = number;
@@ -36,7 +35,7 @@ int Room::getCapacity() {
 }
 
 int Room::getCurrentOccupancy() const {
-    return residents.size();
+    return static_cast<int>(residents.size());
 }
 
                     // SETTERS
@@ -73,23 +72,25 @@ const Student* Room::findResidentById(int id) const {
     return nullptr;
 }
 
-bool Room::isStudentIn(const Student& student) const {
-    return findResidentById(student.getId()) != nullptr;
+bool Room::isStudentIn(int id) const {
+    return findResidentById(id) != nullptr;
 }
 
 bool Room::addResident(const Student& student) {
-    if (!isFull() && !isStudentIn(student)) {
+    if (!isFull() && !isStudentIn(student.getId())) {
         residents.emplace_back(student);
         return true;
     }
     return false;
 }
 
-bool Room::removeResident(const Student& student) {
+bool Room::removeResident(int id) {
     if (isOccupied()) {
-        if (isStudentIn(student)) {
+        if (isStudentIn(id)) {
             residents.erase(
-                remove(residents.begin(), residents.end(), student),
+                remove_if(residents.begin(), residents.end(), [id](const Student& s) {
+                    return s.getId() == id;
+                }),
                 residents.end());
             return true;
         }
@@ -99,8 +100,4 @@ bool Room::removeResident(const Student& student) {
 
 void Room::clearResidents() {
     residents.clear();
-}
-
-void Room::swapResidents(Room& r1, Room& r2) {
-    std::swap(r1.residents, r2.residents);
 }

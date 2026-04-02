@@ -29,13 +29,12 @@ class Room {
                     // METHODS
         bool isFull() const;
         bool isOccupied() const;
-        bool isStudentIn(const Student&) const;
+        bool isStudentIn(int id) const;
         bool addResident(const Student&);
-        bool removeResident(const Student&);
+        bool removeResident(int id);
         void clearResidents();
         const Student* findResidentById(int id) const;
-        static void swapResidents(Room&, Room&);
-
+        
 };
 
 #endif
