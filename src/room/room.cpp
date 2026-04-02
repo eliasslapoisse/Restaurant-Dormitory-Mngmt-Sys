@@ -8,7 +8,7 @@ int Room::capacity = 2;
                     // CONSTRUCTOR AND DESTRUCTOR
 Room::Room(int floor, int number) : floor(0), number(0) {
     if ((floor >= 0 && floor <= LAST_FLOOR) &&
-        (number >= 0  && number <= LAST_NUMBER))
+        (number > 0  && number <= LAST_NUMBER))
     {
         this->floor = floor;
         this->number = number;
@@ -27,6 +27,10 @@ int Room::getNumber() const {
 }
 
 const std::vector<Student>& Room::getResidents() const {
+    return residents;
+}
+
+std::vector<Student>& Room::getResidents() {
     return residents;
 }
 

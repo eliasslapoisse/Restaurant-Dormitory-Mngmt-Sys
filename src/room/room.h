@@ -20,6 +20,7 @@ class Room {
         int getFloor() const;
         int getNumber() const;
         const std::vector<Student>& getResidents() const;
+        std::vector<Student>& getResidents();
         static int getCapacity();
         int getCurrentOccupancy() const;
 
