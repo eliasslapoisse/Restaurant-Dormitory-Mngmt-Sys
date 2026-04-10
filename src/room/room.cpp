@@ -1,7 +1,6 @@
 #include "room.h"
 #include "student.h"
 #include <vector>
-#include <algorithm>
 #include "constants.h"
 
 int Room::capacity = 2;
