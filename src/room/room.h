@@ -20,12 +20,10 @@ class Room {
         int getFloor() const;
         int getNumber() const;
         const std::vector<Student>& getResidents() const;
-        std::vector<Student>& getResidents();
         static int getCapacity();
         int getCurrentOccupancy() const;
 
         static void setCapacity(int);
-        void setResident(const std::vector<Student>&);
 
                     // METHODS
         bool isFull() const;

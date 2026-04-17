@@ -22,20 +22,29 @@ const std::string& Block::getName() const {
     return name;
 }
 
-std::vector<std::vector<Room>>& Block::getRooms() {
+const std::vector<std::vector<Room>>& Block::getRooms() const {
     return rooms;
 }
 
-const Room& Block::getRoom(int floor, int number) const {
-    return rooms[floor][number];
+const Room* Block::getRoom(int floor, int number) const {
+    if (floor >= 0 && floor <= LAST_FLOOR && number > 0 && number <= LAST_NUMBER) {
+        return &rooms[floor][number];
+    }
+    return nullptr;
 }
 
-Room& Block::getRoom(int floor, int number) {
-    return rooms[floor][number];
+Room* Block::getRoom(int floor, int number) {
+    if (floor >= 0 && floor <= LAST_FLOOR && number > 0 && number <= LAST_NUMBER) {
+        return &rooms[floor][number];
+    }
+    return nullptr;
 }
 
 std::vector<Room*> Block::getRoomsByFloor(int floor) {
     std::vector<Room*> result;
+    if (floor < 0 || floor > LAST_FLOOR) {
+        return result; 
+    }
     for (int j = 1; j <= LAST_NUMBER; j++) {
         result.push_back(&rooms[floor][j]);
     }
@@ -55,17 +64,17 @@ std::vector<Room*> Block::getAvailableRooms() {
     return available;
 }
 
-std::vector<Room*> Block::getOccupiedRooms() {
-    std::vector<Room*> occupied;
+std::vector<Room*> Block::getFullRooms() {
+    std::vector<Room*> full;
     for (int i = 0; i <= LAST_FLOOR; i++) {
         for (int j = 1; j <= LAST_NUMBER; j++) {
             if (rooms[i][j].isFull()) 
             {
-                occupied.push_back(&rooms[i][j]);
+                full.push_back(&rooms[i][j]);
             }
         }
     }
-    return occupied;
+    return full;
 }
 
 int Block::getTotalOccupancy() const {
@@ -81,6 +90,7 @@ int Block::getTotalOccupancy() const {
                     // METHODS
 
 Room* Block::findRoomByStudentID(int ID) {
+    if (ID <= 0) return nullptr;
     for (int i = 0; i <= LAST_FLOOR; i++) {
         for (int j = 1; j <= LAST_NUMBER; j++) {
             if (rooms[i][j].isStudentIn(ID))
@@ -93,6 +103,7 @@ Room* Block::findRoomByStudentID(int ID) {
 }
 
 bool Block::isStudentIn(int ID) const {
+    if (ID <= 0) return false;
     for (int i = 0; i <= LAST_FLOOR; i++) {
         for (int j = 1; j <= LAST_NUMBER; j++) {
             if (rooms[i][j].isStudentIn(ID))

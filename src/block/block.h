@@ -17,12 +17,12 @@ class Block {
 
                         // GETTERS AND SETTERS
         const std::string& getName() const;
-        std::vector<std::vector<Room>>& getRooms();
-        const Room& getRoom(int, int) const;
-        Room& getRoom(int, int);
+        const std::vector<std::vector<Room>>& getRooms() const;
+        const Room* getRoom(int, int) const;
+        Room* getRoom(int, int);
         std::vector<Room*> getRoomsByFloor(int);
         std::vector<Room*> getAvailableRooms();
-        std::vector<Room*> getOccupiedRooms();
+        std::vector<Room*> getFullRooms();
         int getTotalOccupancy() const;
 
                         // METHODS

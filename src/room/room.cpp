@@ -2,6 +2,7 @@
 #include "student.h"
 #include <vector>
 #include "constants.h"
+#include <algorithm>
 
 int Room::capacity = 2;
 
@@ -30,10 +31,6 @@ const std::vector<Student>& Room::getResidents() const {
     return residents;
 }
 
-std::vector<Student>& Room::getResidents() {
-    return residents;
-}
-
 int Room::getCapacity() {
     return capacity;
 }
@@ -46,15 +43,6 @@ int Room::getCurrentOccupancy() const {
 void Room::setCapacity(int cap) {
     if (cap > 0) {
         capacity = cap;
-    }
-}
-
-void Room::setResident(const std::vector<Student>& RESIDENTS) {
-    if (RESIDENTS.size() <= capacity) {
-        for (const auto& s : RESIDENTS) {
-            if (!s.isInitialized()) return;
-        }
-        residents = RESIDENTS;
     }
 }
 
@@ -81,8 +69,11 @@ bool Room::isStudentIn(int id) const {
 }
 
 bool Room::addResident(const Student& student) {
+    if (!student.isInitialized()) {
+        return false;
+    }
     if (!isFull() && !isStudentIn(student.getId())) {
-        residents.emplace_back(student);
+        residents.push_back(student);
         return true;
     }
     return false;

@@ -233,6 +233,10 @@ void Student::setStudent(const std::string &firstName, const std::string &family
     }
 }
 
+void Student::setIdCount(int highestID) {
+    idCount = highestID;
+}
+
                     // EQUAL OPERATOR
 bool operator==(const Student& Student1, const Student& Student2) {
     return (Student1.id           == Student2.id          &&

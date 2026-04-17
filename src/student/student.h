@@ -48,6 +48,7 @@ class Student {
         void setAcademicYear(int);
         void setStudent(const std::string&, const std::string&, const std::string&,
                         const std::string&, const std::string&, int);
+        static void setIdCount(int highestID);
                             // PUBLIC VERIFIERS
         bool verifyInput(const std::string&, const std::string&, const std::string&,
                          const std::string&, const std::string&, int) const;
