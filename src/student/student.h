@@ -14,12 +14,14 @@ class Student {
         int academicYear;
         static int idCount;
         static const std::string defaultstr;
+        
                             // VERIFY FUNCTIONS
         bool verifyName(std::string) const;
         bool verifyEmail(std::string) const;
         bool verifyPhoneNumber(std::string) const;
         bool verifyAcademicYear(int) const;
         bool verifyGender(std::string) const;
+        
                             // ID SETTER
         void setId();
 
@@ -30,7 +32,8 @@ class Student {
         Student();
 
         ~Student();
-                            // GETTERS AND SETTERS
+        
+                            // GETTERS 
         int getId() const;
         const std::string& getFirstName() const;
         const std::string& getFamilyName() const;
@@ -40,15 +43,17 @@ class Student {
         int getAcademicYear() const;
         static int getIdCount();
         
-        void setFirstName(const std::string&);
-        void setFamilyName(const std::string&);
-        void setEmail(const std::string&);
-        void setPhoneNumber(const std::string&);
-        void setGender(const std::string&);
-        void setAcademicYear(int);
-        void setStudent(const std::string&, const std::string&, const std::string&,
+                            // BOOLEAN SETTERS
+        bool setFirstName(const std::string&);
+        bool setFamilyName(const std::string&);
+        bool setEmail(const std::string&);
+        bool setPhoneNumber(const std::string&);
+        bool setGender(const std::string&);
+        bool setAcademicYear(int);
+        bool setStudent(const std::string&, const std::string&, const std::string&,
                         const std::string&, const std::string&, int);
         static void setIdCount(int highestID);
+        
                             // PUBLIC VERIFIERS
         bool verifyInput(const std::string&, const std::string&, const std::string&,
                          const std::string&, const std::string&, int) const;

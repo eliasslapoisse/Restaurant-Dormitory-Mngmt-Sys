@@ -12,89 +12,80 @@ const std::string Student::defaultstr = "N/A";
 bool Student::verifyName(std::string name) const {
     name.erase(std::remove(name.begin(), name.end(), ' '), name.end());
     std::locale loc("");
+    
+    if (name.empty() || name.size() > 30) return false;
+
     int oneheiphen = 0;
-    if (name.empty()) {
-        return false;
-    }
-    if (name.size() > 30) {
-        return false;
-    }
     for (int i = 0; i < name.size(); i++) {
-        if (i == 0 || i == name.size()-1)
-        {
-            if (!std::isalpha(name[i], loc)) { return false; }
-        }
-        else
-        {
-            if (!std::isalpha(name[i], loc) && name[i] != '-') { return false; }
-            if (name[i] == '-') { oneheiphen++; }
+        if (i == 0 || i == name.size() - 1) {
+            if (!std::isalpha(name[i], loc)) return false; 
+        } else {
+            if (!std::isalpha(name[i], loc) && name[i] != '-') return false; 
+            if (name[i] == '-') oneheiphen++; 
         }
     }
+    
     return (oneheiphen < 2);
 }
 
 bool Student::verifyEmail(std::string email) const {
     email.erase(std::remove(email.begin(), email.end(), ' '), email.end());
     std::locale loc("");
+    
+    if (email.empty() || email.size() > 254) return false;
+
     int oneat = 0;
-    bool onedot = false;
     int indexat = -1;
-    if (email.empty()) {
-        return false;
-    }
-    if (email.size() > 254) {
-        return false;
-    }
+
     for (int i = 0; i < email.size(); i++) {
         if (email[i] == '@') {
             oneat++;
             indexat = i;
         }
     }
-    if (oneat != 1) { return false; }
-    if (indexat > 64 || indexat <= 0 || indexat == email.size()-1) { return false; }
 
-    if     ((!std::isalpha(email[0], loc)              && !std::isdigit(email[0])         && email[0] != '_')         ||
-            (!std::isalpha(email[indexat-1], loc)      && !std::isdigit(email[indexat-1]) && email[indexat-1] != '_') ||
-            (!std::isalpha(email[email.size()-1], loc) && !std::isdigit(email[email.size()-1]))                       ||
-            (!std::isalpha(email[indexat+1], loc)      && !std::isdigit(email[indexat+1]))                            )
-            { return false; }
+    if (oneat != 1 || indexat > 64 || indexat <= 0 || indexat == email.size() - 1) return false;
+
+    if ((!std::isalpha(email[0], loc) && !std::isdigit(email[0], loc) && email[0] != '_') ||
+        (!std::isalpha(email[indexat-1], loc) && !std::isdigit(email[indexat-1], loc) && email[indexat-1] != '_') ||
+        (!std::isalpha(email[email.size()-1], loc) && !std::isdigit(email[email.size()-1], loc)) ||
+        (!std::isalpha(email[indexat+1], loc) && !std::isdigit(email[indexat+1], loc))) {
+        return false;
+    }
 
     for (int i = 1; i < indexat - 1; i++) {
-        if (!std::isalpha(email[i], loc) && !std::isdigit(email[i]) && email[i] != '_'
-            && email[i] != '-' && email[i] != '.' && email[i] != '+')
-            { return false; }
+        if (!std::isalpha(email[i], loc) && !std::isdigit(email[i], loc) &&
+            email[i] != '_' && email[i] != '-' && email[i] != '.' && email[i] != '+') {
+            return false;
+        }
     }
-    for (int i = indexat + 2; i < email.size()-1; i++) {
-        if (!std::isalpha(email[i], loc) && !std::isdigit(email[i]) 
-            &&    email[i] != '-'   &&   email[i] != '.')
-            {
-                return false;
-            }
-        if (email[i] == '.' && email[i+1] == '.')
-            {
-                return false;
-            }
+
+    for (int i = indexat + 2; i < email.size() - 1; i++) {
+        if (!std::isalpha(email[i], loc) && !std::isdigit(email[i], loc) && email[i] != '-' && email[i] != '.') {
+            return false;
+        }
+        if (email[i] == '.' && email[i+1] == '.') return false;
     }
-    for (int i = indexat + 2; i < email.size()-1; i++) {
+
+    bool onedot = false;
+    for (int i = indexat + 2; i < email.size() - 1; i++) {
         if (email[i] == '.') {
             onedot = true;
             break;
         }
     }
+
     return onedot;
 }
 
 bool Student::verifyPhoneNumber(std::string num) const {
-    num.erase(std::remove(num.begin(), num.end(), ' '), num.end());
-    num.erase(std::remove(num.begin(), num.end(), '-'), num.end());
-    if (num.empty()) { return false; }
-    if (num.size() != 10) { return false; }
+    if (num.empty() || num.size() != 10) return false;
+    
+    std::locale loc("");
     for (int i = 0; i < num.size(); i++) {
-        if (!std::isdigit(num[i])) {
-            return false;
-        }
+        if (!std::isdigit(num[i], loc)) return false; 
     }
+    
     return (num[0] == '0' && (num[1] == '5' || num[1] == '6' || num[1] == '7'));
 }
 
@@ -103,14 +94,12 @@ bool Student::verifyAcademicYear(int year) const {
 }
 
 bool Student::verifyGender(std::string gender) const {
-    if (gender.empty()) { return false; }
-    gender.erase(std::remove(gender.begin(), gender.end(), ' '), gender.end());
-    return    (gender == "Male" || gender == "male" || gender == "M" || gender == "m" ||
+    return (gender == "Male" || gender == "male" || gender == "M" || gender == "m" ||
             gender == "Female" || gender == "female" || gender == "F" || gender == "f");
 }
 
 bool Student::verifyInput(const std::string& firstName, const std::string& familyName, const std::string& email,
-                 const std::string& phoneNumber, const std::string& gender, int academicYear) const {
+                          const std::string& phoneNumber, const std::string& gender, int academicYear) const {
     return (verifyName(firstName) && verifyName(familyName) && verifyEmail(email) &&
             verifyGender(gender) && verifyAcademicYear(academicYear) && verifyPhoneNumber(phoneNumber));
 }
@@ -119,21 +108,22 @@ bool Student::isInitialized() const {
     return (id > 0);
 }
 
+
                     // CONSTRUCTOR AND DESTRUCTOR
 
 Student::Student(const std::string& firstName, const std::string& familyName, const std::string& email,
                  const std::string& phoneNumber, const std::string& gender, int academicYear)
                  : id(0), firstName(defaultstr), familyName(defaultstr), email(defaultstr),
-                     phoneNumber(defaultstr), gender(defaultstr), academicYear(0)
+                   phoneNumber(defaultstr), gender(defaultstr), academicYear(0)
 {   
     if (verifyInput(firstName, familyName, email, phoneNumber, gender, academicYear)) 
     {
-        setFirstName(firstName);
-        setFamilyName(familyName);
-        setEmail(email);
-        setPhoneNumber(phoneNumber);
-        setGender(gender);
-        setAcademicYear(academicYear);
+        this->firstName = firstName;
+        this->familyName = familyName;
+        this->email = email;
+        this->phoneNumber = phoneNumber;
+        this->gender = gender;
+        this->academicYear = academicYear;
         setId();
     }
 }
@@ -143,39 +133,18 @@ Student::Student() : id(0), firstName(defaultstr), familyName(defaultstr), email
 
 Student::~Student() {}
 
+
                     // GETTERS
 
-int Student::getId() const {
-    return id;
-}
+int Student::getId() const { return id; }
+const std::string& Student::getFirstName() const { return firstName; }
+const std::string& Student::getFamilyName() const { return familyName; }
+const std::string& Student::getEmail() const { return email; }
+const std::string& Student::getPhoneNumber() const { return phoneNumber; }
+const std::string& Student::getGender() const { return gender; }
+int Student::getAcademicYear() const { return academicYear; }
+int Student::getIdCount() { return idCount; }
 
-const std::string& Student::getFirstName() const {
-    return firstName;
-}
-
-const std::string& Student::getFamilyName() const {
-    return familyName;
-}
-
-const std::string& Student::getEmail() const {
-    return email;
-}
-
-const std::string& Student::getPhoneNumber() const {
-    return phoneNumber;
-}
-
-const std::string& Student::getGender() const {
-    return gender;
-}
-
-int Student::getAcademicYear() const {
-    return academicYear;
-}
-
-int Student::getIdCount() {
-    return idCount;
-}
 
                     // SETTERS
 
@@ -183,54 +152,68 @@ void Student::setId() {
     this->id = ++idCount;
 }
 
-void Student::setFirstName(const std::string& firstName) {
+bool Student::setFirstName(const std::string& firstName) {
     if (verifyName(firstName)) {
         this->firstName = firstName;
+        return true;
     }
+    return false;
 }
 
-void Student::setFamilyName(const std::string& familyName) {
+bool Student::setFamilyName(const std::string& familyName) {
     if (verifyName(familyName)) {
         this->familyName = familyName;
+        return true;
     }
+    return false;
 }
 
-void Student::setEmail(const std::string& email) {
+bool Student::setEmail(const std::string& email) {
     if (verifyEmail(email)) {
         this->email = email;
+        return true;
     }
+    return false;
 }
 
-void Student::setPhoneNumber(const std::string& phoneNumber) {
+bool Student::setPhoneNumber(const std::string& phoneNumber) {
     if (verifyPhoneNumber(phoneNumber)) {
         this->phoneNumber = phoneNumber;
+        return true;
     }
+    return false;
 }
 
-void Student::setGender(const std::string& gender) {
+bool Student::setGender(const std::string& gender) {
     if (verifyGender(gender)) {
         this->gender = gender;
+        return true;
     }
+    return false;
 }
 
-void Student::setAcademicYear(int academicYear) {
+bool Student::setAcademicYear(int academicYear) {
     if (verifyAcademicYear(academicYear)) {
         this->academicYear = academicYear;
+        return true;
     }
+    return false;
 }
 
-void Student::setStudent(const std::string &firstName, const std::string &familyName, const std::string &email,
+bool Student::setStudent(const std::string &firstName, const std::string &familyName, const std::string &email,
                          const std::string &phoneNumber, const std::string &gender, int academicYear) {
     if (verifyInput(firstName, familyName, email, phoneNumber, gender, academicYear) && !isInitialized()) 
     {
-        setFirstName(firstName);
-        setFamilyName(familyName);
-        setEmail(email);
-        setPhoneNumber(phoneNumber);
-        setGender(gender);
-        setAcademicYear(academicYear);
+        this->firstName = firstName;
+        this->familyName = familyName;
+        this->email = email;
+        this->phoneNumber = phoneNumber;
+        this->gender = gender;
+        this->academicYear = academicYear;
         setId();
+        return true;
     }
+    return false;
 }
 
 void Student::setIdCount(int highestID) {
