@@ -1,6 +1,7 @@
 #include "restaurant.h"
 #include <algorithm>
 
+// STATIC VARIABLE INITIALIZATION
 int Restaurant::BREAKFAST_OPEN  = 7;
 int Restaurant::BREAKFAST_CLOSE = 9;
 int Restaurant::LUNCH_OPEN      = 12;
@@ -9,7 +10,6 @@ int Restaurant::DINNER_OPEN     = 19;
 int Restaurant::DINNER_CLOSE    = 21;
 
 // CONSTRUCTOR & DESTRUCTOR
-
 Restaurant::Restaurant() {
     for (int i = 0; i < 7; i++) {
         weeklyMenu[i] = { morningDish::CoffeeMilk_and_Croissant, dish::Spaghetti, dish::Spaghetti };
@@ -18,8 +18,8 @@ Restaurant::Restaurant() {
 
 Restaurant::~Restaurant() {}
 
-// GETTERS
 
+// GETTERS
 Restaurant::dailyMenu Restaurant::getDailyMenu(day d) const {
     return weeklyMenu[static_cast<int>(d)];
 }
@@ -28,17 +28,17 @@ const Restaurant::dailyMenu* Restaurant::getWeeklyMenu() const {
     return weeklyMenu;
 }
 
-// SETTERS (TIMES)
 
-void Restaurant::setBR_OPEN(int t)  { BREAKFAST_OPEN = t; }
-void Restaurant::setBR_CLOSE(int t) { BREAKFAST_CLOSE = t; }
-void Restaurant::setLU_OPEN(int t)  { LUNCH_OPEN = t; }
-void Restaurant::setLU_CLOSE(int t) { LUNCH_CLOSE = t; }
-void Restaurant::setDI_OPEN(int t)  { DINNER_OPEN = t; }
-void Restaurant::setDI_CLOSE(int t) { DINNER_CLOSE = t; }
+// SECURE SETTERS (TIMES) - Validates 24-hour format
+void Restaurant::setBR_OPEN(int t)  { if (t >= 0 && t <= 23) BREAKFAST_OPEN = t; }
+void Restaurant::setBR_CLOSE(int t) { if (t >= 0 && t <= 24) BREAKFAST_CLOSE = t; }
+void Restaurant::setLU_OPEN(int t)  { if (t >= 0 && t <= 23) LUNCH_OPEN = t; }
+void Restaurant::setLU_CLOSE(int t) { if (t >= 0 && t <= 24) LUNCH_CLOSE = t; }
+void Restaurant::setDI_OPEN(int t)  { if (t >= 0 && t <= 23) DINNER_OPEN = t; }
+void Restaurant::setDI_CLOSE(int t) { if (t >= 0 && t <= 24) DINNER_CLOSE = t; }
+
 
 // SETTERS (MENUS)
-
 void Restaurant::setDailyMenu(day d, morningDish b, dish l, dish din) {
     int index = static_cast<int>(d);
     weeklyMenu[index].breakfast = b;
@@ -57,8 +57,8 @@ void Restaurant::setWeeklyMenu(dailyMenu sun, dailyMenu mon, dailyMenu tue,
     weeklyMenu[static_cast<int>(day::Saturday)]  = sat;
 }
 
-// MEAL CHECKING
 
+// MEAL CHECKING
 bool Restaurant::didStudentEatBreakfast(int ID) const {
     return std::find(ateBreakfast.begin(), ateBreakfast.end(), ID) != ateBreakfast.end();
 }
@@ -71,22 +71,30 @@ bool Restaurant::didStudentEatDinner(int ID) const {
     return std::find(ateDinner.begin(), ateDinner.end(), ID) != ateDinner.end();
 }
 
-// LOGIC METHODS (Actions)
 
-bool Restaurant::recordBreakfast(int ID) {
-    if (didStudentEatBreakfast(ID)) return false; // Already ate!
+// SECURE LOGIC METHODS (Actions)
+bool Restaurant::recordBreakfast(int ID, int currentHour) {
+    // 1. Is the restaurant actually serving breakfast right now?
+    if (currentHour < BREAKFAST_OPEN || currentHour >= BREAKFAST_CLOSE) return false;
+    // 2. Did the student already eat?
+    if (didStudentEatBreakfast(ID)) return false; 
+    
     ateBreakfast.push_back(ID);
     return true;
 }
 
-bool Restaurant::recordLunch(int ID) {
+bool Restaurant::recordLunch(int ID, int currentHour) {
+    if (currentHour < LUNCH_OPEN || currentHour >= LUNCH_CLOSE) return false;
     if (didStudentEatLunch(ID)) return false; 
+    
     ateLunch.push_back(ID);
     return true;
 }
 
-bool Restaurant::recordDinner(int ID) {
+bool Restaurant::recordDinner(int ID, int currentHour) {
+    if (currentHour < DINNER_OPEN || currentHour >= DINNER_CLOSE) return false;
     if (didStudentEatDinner(ID)) return false; 
+    
     ateDinner.push_back(ID);
     return true;
 }
@@ -104,8 +112,8 @@ bool Restaurant::isOpen(int hour) const {
     return false;
 }
 
-// QT UI HELPERS (Enum to String Converters)
 
+// QT UI HELPERS (Enum to String Converters)
 std::string Restaurant::getMorningDishName(morningDish d) {
     switch(d) {
         case morningDish::CoffeeMilk_and_Croissant:  return "Coffee Milk & Croissant";

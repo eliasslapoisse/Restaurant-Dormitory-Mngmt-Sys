@@ -66,10 +66,10 @@ class Restaurant {
         bool didStudentEatLunch(int ID) const;
         bool didStudentEatDinner(int ID) const;
 
-                        // LOGIC METHODS
-        bool recordBreakfast(int ID); 
-        bool recordLunch(int ID);
-        bool recordDinner(int ID);
+                        // SECURE LOGIC METHODS (Now require the current time!)
+        bool recordBreakfast(int ID, int currentHour); 
+        bool recordLunch(int ID, int currentHour);
+        bool recordDinner(int ID, int currentHour);
         void resetDailyMeals();
         bool isOpen(int hour) const;     
 
