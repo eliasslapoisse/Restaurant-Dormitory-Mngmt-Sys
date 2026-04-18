@@ -1,6 +1,19 @@
 #include "university.h"
+#include "constants.h"
 #include <algorithm>
 #include <fstream>
+#include <sstream>
+
+// Helper function to split strings by a delimiter
+std::vector<std::string> splitString(const std::string& str, char delimiter) {
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(str);
+    while (std::getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
 
 // CONSTRUCTORS AND DESTRUCTOR
 
@@ -182,22 +195,68 @@ bool University::saveData(const std::string& filename) const {
     std::ofstream outFile(filename);
     if (!outFile.is_open()) return false;
 
-    // Header
+    // Header & Global State
     outFile << "UNIVERSITY_DATA_V1\n";
     outFile << name << "\n";
+    outFile << "GLOBAL_ID|" << Student::getIdCount() << "\n";
 
-    // Save Pool
-    outFile << "POOL_START " << studentPool.size() << "\n";
+    // 1. Save the Student Pool
+    outFile << "POOL_START\n";
     for (const auto& s : studentPool) {
-        // We assume Student has a formatted output or we write fields
-        outFile << s.getId() << "|" << s.getEmail() << "|" << s.getPhoneNumber() << "\n";
+        outFile << s.getId() << "|" << s.getFirstName() << "|" << s.getFamilyName() << "|"
+                << s.getEmail() << "|" << s.getPhoneNumber() << "|" << s.getGender() << "|"
+                << s.getAcademicYear() << "\n";
     }
+    outFile << "POOL_END\n";
 
-    // Save Dormitories
-    outFile << "DORMS_START " << dormitories.size() << "\n";
-    for (const auto& d : dormitories) {
-        // d.saveToStream(outFile); // Delegate to Dormitory
+    // 2. Save Dormitories, Restaurant Data, and Assigned Students
+    outFile << "DORMS_START\n";
+    for (const auto& dorm : dormitories) {
+        outFile << "DORM|" << dorm.getNumber() << "\n";
+        
+        // Save Restaurant Data
+        const Restaurant& rest = dorm.getRestaurant();
+        const auto* weeklyMenu = rest.getWeeklyMenu();
+        
+        outFile << "REST_MENU";
+        for (int i = 0; i < 7; i++) {
+            outFile << "|" << static_cast<int>(weeklyMenu[i].breakfast)
+                    << "|" << static_cast<int>(weeklyMenu[i].lunch)
+                    << "|" << static_cast<int>(weeklyMenu[i].dinner);
+        }
+        outFile << "\n";
+
+        outFile << "REST_BR";
+        for (int id : rest.getAteBreakfastList()) outFile << "|" << id;
+        outFile << "\n";
+
+        outFile << "REST_LU";
+        for (int id : rest.getAteLunchList()) outFile << "|" << id;
+        outFile << "\n";
+
+        outFile << "REST_DI";
+        for (int id : rest.getAteDinnerList()) outFile << "|" << id;
+        outFile << "\n";
+        
+        // Save Room Assignments
+        for (const auto& block : dorm.getBlocks()) {
+            for (int f = 0; f <= LAST_FLOOR; f++) {
+                for (int r = 1; r <= LAST_NUMBER; r++) {
+                    const Room* room = block.getRoom(f, r);
+                    if (room && room->isOccupied()) {
+                        for (const auto& s : room->getResidents()) {
+                            outFile << "STUDENT|" << s.getId() << "|" << s.getFirstName() << "|"
+                                    << s.getFamilyName() << "|" << s.getEmail() << "|"
+                                    << s.getPhoneNumber() << "|" << s.getGender() << "|"
+                                    << s.getAcademicYear() << "|" << block.getName() << "|"
+                                    << f << "|" << r << "\n";
+                        }
+                    }
+                }
+            }
+        }
     }
+    outFile << "DORMS_END\n";
 
     outFile.close();
     return true;
@@ -207,9 +266,113 @@ bool University::loadData(const std::string& filename) {
     std::ifstream inFile(filename);
     if (!inFile.is_open()) return false;
 
-    // Implementation depends on the final save format chosen
-    // But logically: Clear current vectors and rebuild them from file lines.
-    
+    std::string line;
+    // Verify file format
+    if (!std::getline(inFile, line) || line != "UNIVERSITY_DATA_V1") return false;
+
+    if (std::getline(inFile, line)) {
+        setName(line);
+    }
+
+    // Read the global ID count
+    int savedGlobalIdCount = 0;
+    if (std::getline(inFile, line) && line.find("GLOBAL_ID|") == 0) {
+        savedGlobalIdCount = std::stoi(line.substr(10)); 
+    }
+
+    // Reset current state before loading
+    studentPool.clear();
+    dormitories.clear();
+
+    std::string section = "";
+    Dormitory* currentDorm = nullptr;
+
+    while (std::getline(inFile, line)) {
+        if (line.empty()) continue;
+
+        // Section Headers
+        if (line == "POOL_START") { section = "POOL"; continue; }
+        if (line == "POOL_END") { section = ""; continue; }
+        if (line == "DORMS_START") { section = "DORMS"; continue; }
+        if (line == "DORMS_END") { section = ""; continue; }
+
+        try {
+            if (section == "POOL") {
+                auto tokens = splitString(line, '|');
+                if (tokens.size() == 7) {
+                    int id = std::stoi(tokens[0]);
+                    int year = std::stoi(tokens[6]);
+                    
+                    Student::setIdCount(id - 1);
+                    Student s(tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], year);
+                    studentPool.push_back(s);
+                }
+            } 
+            else if (section == "DORMS") {
+                auto tokens = splitString(line, '|');
+                
+                if (tokens[0] == "DORM" && tokens.size() == 2) {
+                    int dormNum = std::stoi(tokens[1]);
+                    dormitories.push_back(Dormitory(dormNum));
+                    currentDorm = &dormitories.back();
+                } 
+                else if (tokens[0] == "REST_MENU" && tokens.size() == 22 && currentDorm) {
+                    Restaurant::dailyMenu days[7];
+                    int idx = 1;
+                    for (int i = 0; i < 7; i++) {
+                        days[i].breakfast = static_cast<Restaurant::morningDish>(std::stoi(tokens[idx++]));
+                        days[i].lunch = static_cast<Restaurant::dish>(std::stoi(tokens[idx++]));
+                        days[i].dinner = static_cast<Restaurant::dish>(std::stoi(tokens[idx++]));
+                    }
+                    currentDorm->getRestaurant().setWeeklyMenu(
+                        days[0], days[1], days[2], days[3], days[4], days[5], days[6]
+                    );
+                }
+                else if (tokens[0] == "REST_BR" && currentDorm) {
+                    std::vector<int> list;
+                    for (size_t i = 1; i < tokens.size(); i++) list.push_back(std::stoi(tokens[i]));
+                    currentDorm->getRestaurant().setAteBreakfastList(list);
+                }
+                else if (tokens[0] == "REST_LU" && currentDorm) {
+                    std::vector<int> list;
+                    for (size_t i = 1; i < tokens.size(); i++) list.push_back(std::stoi(tokens[i]));
+                    currentDorm->getRestaurant().setAteLunchList(list);
+                }
+                else if (tokens[0] == "REST_DI" && currentDorm) {
+                    std::vector<int> list;
+                    for (size_t i = 1; i < tokens.size(); i++) list.push_back(std::stoi(tokens[i]));
+                    currentDorm->getRestaurant().setAteDinnerList(list);
+                }
+                else if (tokens[0] == "STUDENT" && tokens.size() == 11 && currentDorm) {
+                    int id = std::stoi(tokens[1]);
+                    int year = std::stoi(tokens[7]);
+                    std::string blockName = tokens[8];
+                    int floor = std::stoi(tokens[9]);
+                    int roomNum = std::stoi(tokens[10]);
+
+                    Student::setIdCount(id - 1);
+                    Student s(tokens[2], tokens[3], tokens[4], tokens[5], tokens[6], year);
+
+                    Block* block = currentDorm->getBlock(blockName);
+                    if (block) {
+                        Room* room = block->getRoom(floor, roomNum);
+                        if (room) {
+                            room->addResident(s);
+                        }
+                    }
+                }
+            }
+        } 
+        catch (const std::exception& e) {
+            // Ignore corrupted lines
+            continue;
+        }
+    }
+
     inFile.close();
+
+    // Restore the absolute highest ID ever issued
+    Student::setIdCount(savedGlobalIdCount);
+    
     return true;
 }

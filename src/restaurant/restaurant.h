@@ -77,6 +77,14 @@ class Restaurant {
         static std::string getDishName(dish d);
         static std::string getMorningDishName(morningDish d);
         static std::string getDayName(day d);
+
+        const std::vector<int>& getAteBreakfastList() const { return ateBreakfast; }
+        const std::vector<int>& getAteLunchList() const { return ateLunch; }
+        const std::vector<int>& getAteDinnerList() const { return ateDinner; }
+
+        void setAteBreakfastList(const std::vector<int>& list) { ateBreakfast = list; }
+        void setAteLunchList(const std::vector<int>& list) { ateLunch = list; }
+        void setAteDinnerList(const std::vector<int>& list) { ateDinner = list; }
 };
 
 #endif
