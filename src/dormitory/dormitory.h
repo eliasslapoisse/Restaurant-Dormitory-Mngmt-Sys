@@ -62,6 +62,19 @@
                             // ROOM MANAGEMENT
             bool swapStudents(int studentId1, int studentId2);
             void resetDormitory();
+
+                            // Search Helpers for Validation
+            bool containsStudentEmail(const std::string& email) const;
+            bool containsStudentPhone(const std::string& phone) const;
+                            // The "Hand-back" Unassign (Needed for University Pool)
+            bool removeAndReturnStudent(int studentId, Student& outStudent);
+
+                            // String Location (For the University's locateStudent function)
+            std::string findStudentLocation(int studentId) const;
+
+                            // Helper to match University expectations
+            int getAvailableSpace() const { return getTotalCapacity() - getTotalOccupancy(); }
+            bool addStudent(const Student& s); // Automatically finds the first empty room
     };
 
     #endif

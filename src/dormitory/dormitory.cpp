@@ -330,3 +330,47 @@ void Dormitory::resetDormitory() {
         }
     }
 }
+
+bool Dormitory::containsStudentEmail(const std::string& email) const {
+    for (const auto& s : getAllAssignedStudents()) {
+        if (s.getEmail() == email) return true;
+    }
+    return false;
+}
+
+bool Dormitory::removeAndReturnStudent(int studentId, Student& outStudent) {
+    Room* room = findRoomByStudentID(studentId);
+    if (room == nullptr) return false;
+
+    const Student* s = room->findResidentById(studentId);
+    if (s != nullptr) {
+        outStudent = *s; // Copy data
+        return room->removeResident(studentId); // Delete from room
+    }
+    return false;
+}
+
+std::string Dormitory::findStudentLocation(int studentId) const {
+    for (const auto& block : blocks) {
+        for (int f = 0; f <= LAST_FLOOR; f++) {
+            for (int r = 1; r <= LAST_NUMBER; r++) {
+                const Room* room = block.getRoom(f, r);
+                if (room && room->isStudentIn(studentId)) {
+                    return "Block " + block.getName() + ", Floor " + std::to_string(f) + ", Room " + std::to_string(r);
+                }
+            }
+        }
+    }
+    return "Not Found";
+}
+
+bool Dormitory::addStudent(const Student& s) {
+    for (auto& block : blocks) {
+        if (!block.isFull()) {
+            for (auto* room : block.getAvailableRooms()) {
+                return room->addResident(s);
+            }
+        }
+    }
+    return false;
+}
