@@ -1,149 +1,119 @@
-Introduction:
+# 🏛️ UDRMS - University Dormitory & Restaurant Management System
 
-University dormitories play a vital role in student life by providing accommodation and essential daily services. Among these services, the university restaurant
-is an integral part of the dormitory, ensuring meal availability for resident students.
-The University Dormitory & Restaurant Management System (UDRMS) is
-designed to model and manage dormitory operations, including student accommodation, room allocation, and restaurant services such as menu management
-and meal access. The system aims to reflect real-world university infrastructure
-in a clear and structured way.
+![C++](https://img.shields.io/badge/C++-17-blue.svg?style=flat&logo=c%2B%2B)
+![Qt](https://img.shields.io/badge/Qt-6.0%2B-41CD52.svg?style=flat&logo=qt)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-This project focuses on applying Object-Oriented Programming (OOP) principles to design a modular, maintainable, and well-structured system. UML
-diagrams will be used to document the system design and object relationships,
-helping students better understand abstraction and system modeling.
+**UDRMS** is a comprehensive, high-performance desktop application built in C++ and Qt. Designed originally for university environments (such as ENSIA), it streamlines the management of student housing, dining facilities, maintenance requests, and inventory tracking. 
 
+The application features a custom-built dark/orange UI theme and provides distinct portals for both **Administrators** and **Students**.
 
+---
 
-Objectives:
+## ✨ Key Features
 
-• Model a real-world university dormitory system using Object-Oriented
-Programming.
-• Apply core OOP concepts such as encapsulation, composition, inheritance,
-and basic polymorphism.
-• Design a clear relationship between dormitories and restaurants, where
-the restaurant is part of the dormitory.
-• Organize a C++ project using multiple source and header files.
-• Design and implement a graphical user interface for system interaction.
-• Utilize appropriate data structures to ensure good performance, especially
-for managing students, rooms, and dormitories.
-• Test the system to ensure correct functionality, including room allocation,
-capacity constraints, and restaurant access.
-• Create UML diagrams to represent the system structure and interactions.
+### ⚙️ Administrator Portal
+* **🎓 Student Management:** Enroll, update, locate, and expel students. View students in the "Unassigned Pool" vs. "Assigned" tables.
+* **🏠 Dormitory Allocation:** Auto-assign students to available spaces, or manually place them using an interactive, visual room grid. Swap and move students seamlessly.
+* **🍽️ Restaurant & Menu Planner:** Set weekly menus, track daily student meal access, and configure global restaurant operating hours.
+* **🔧 Maintenance Center:** Track and resolve student-submitted room issues (Plumbing, Electrical, etc.) with priority levels.
+* **📦 Inventory & Announcements:** Monitor stock levels with low-stock warnings, manage billing/fees, and broadcast announcements to students.
+* **💾 Data Persistence:** Locally save and load the entire university state via a custom C++ Data Manager.
 
+### 🎓 Student Portal
+* **🏠 Room Details:** View current dormitory assignment, room location, and roommate details.
+* **🍽️ Daily Menu:** Check the daily breakfast, lunch, and dinner offerings for their specific dormitory.
+* **🔧 Issue Reporting:** Submit maintenance requests directly to the administration.
 
+---
 
-Features:
+## 📸 Screenshots
 
-1. Student Management:
-• Add and remove students from the system.
-• Store student information (ID, full name, academic year).
-• Assign students to dormitories and rooms.
-• Display student details and accommodation status.
+*(Replace these placeholder links with actual screenshots of your app once uploaded to GitHub)*
 
-2. Dormitory Management:
-• Create and manage multiple dormitories.
-• Define dormitory capacity and available rooms.
-• Assign and remove students from rooms.
-• Display occupied and available rooms.
+| Login Screen | Admin Dashboard |
+| :---: | :---: |
+| ![Login](docs/login_screenshot.png) | ![Dashboard](docs/dashboard_screenshot.png) |
 
-3. Room Management:
-• Manage rooms with room numbers and capacities.
-• Track room occupancy.
-• Prevent over-occupancy of rooms.
+| Visual Room Grid | Student Portal |
+| :---: | :---: |
+| ![Dorms](docs/dorms_screenshot.png) | ![Student](docs/student_screenshot.png) |
 
-4. Restaurant Management (Part of Dormitory):
-• Each dormitory has exactly one restaurant.
-• Manage daily menus (breakfast, lunch, dinner).
-• Allow dormitory residents to view restaurant menus.
-• (Optional) Track the number of meals served per day.
+---
 
-5. Graphical User Interface:
-• Develop a graphical user interface for managing dormitory and restaurant operations.
-• Use C++ with a graphical framework such as Qt for enhanced interactivity.
-• Ensure intuitive navigation using windows, buttons, forms, and dialogs.
-• Validate user input and handle incorrect entries.
+## 🚀 Getting Started
 
-6. UML Design:
-• Create a UML Class Diagram representing the system structure.
-• Clearly show relationships such as composition and association.
-• (Optional) Provide a UML Sequence Diagram for key operations.
+### Prerequisites
+* A standard C++17 compiler (GCC, Clang, or MSVC).
+* **[Qt Creator](https://www.qt.io/download)** and the Qt Framework (Qt 5 or Qt 6).
 
-7. File Handling and Data Persistence:
-• Save and load data related to students, dormitories, rooms, and
-restaurants.
-• Ensure data persistence across program executions.
+### Installation & Build
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/UDRMS.git](https://github.com/YOUR_USERNAME/UDRMS.git)
+   cd UDRMS
 
-8. Error Handling:
-• Handle invalid inputs and unexpected situations gracefully.
-• Display clear and meaningful error messages.
+   Open the Project:
+Launch Qt Creator and open the udrms.pro project file.
 
+Build the Application:
 
+Run qmake (Right-click the project -> Run qmake).
 
-System Structure:
+Click Build (or press Ctrl+B).
 
-• Main Program File: Controls the program flow and user interaction.
-• Class Files: Separate classes such as Student, Room, Restaurant, Dormitory, and University.
-• Graphical Interface Files: Manage UI components, potentially using
-C++ with Qt for enhanced interactivity.
-• UML Documentation: UML class and sequence diagrams describing
-the system design.
-• Data Files: Files used to store persistent data (students, dormitories,
-rooms, restaurants).
-• Data Structures: Appropriate data structures (arrays, lists, or other
-containers) should be used to store and manage students, rooms, and
-dormitories efficiently, supporting scalability and ease of management.
+Run:
+Click the green Play button (Ctrl+R) to launch the application.
 
+🔐 Default Credentials
+To test the application immediately after building, use the following login credentials:
 
+Administrator Access:
 
+Username: admin
 
+Password: admin123
 
+Student Access:
 
+Student ID: (Any valid ID generated after enrolling a student)
 
+Password: (The student's registered phone number)
 
+🏗️ Project Architecture
+UDRMS strictly separates backend data logic from the frontend Qt GUI:
 
+src/backend/: Pure C++ classes (Student, Room, Dormitory, Restaurant, University) handling all logic, algorithms, and data encapsulation.
 
+src/frontend/: Qt-based GUI components (MainWindow, DashboardWidget, DormitoryWidget, StudentPortalWindow).
 
-For a complete real-life Qt app, here's everything you'll need beyond the database:
+src/datamanager.h/cpp: A Singleton class acting as the bridge between the UI and the pure C++ backend, handling state and save/load persistence.
 
-Authentication
+🔮 Roadmap / Future Updates
+[ ] Export reports and student lists to PDF.
 
-Login screen with username/password
-At minimum an admin account
-Maybe different roles (admin, viewer)
-Passwords hashed, not stored plain text
+[ ] Implement QtCharts for visual dashboard analytics.
 
+[ ] Dark Mode / Light Mode theme toggle.
 
-Core GUI screens you'll need
+[ ] Database integration (SQLite/PostgreSQL) replacing local file persistence.
 
-Dashboard (overview, occupancy stats)
-Student management (add, edit, remove, search)
-Room assignment (assign student to room, move, unassign)
-Block/Dormitory overview (see all rooms, who's where)
-Restaurant management screen
+🤝 Contributing
+Contributions, issues, and feature requests are welcome!
+Feel free to check the issues page.
 
+Fork the Project
 
-Search & filters
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
 
-Find student by ID, name
-Find available rooms
-Filter by block, floor, gender, academic year
+Commit your Changes (git commit -m 'Add some AmazingFeature')
 
+Push to the Branch (git push origin feature/AmazingFeature)
 
-Error handling in UI
+Open a Pull Request
 
-What happens if user inputs invalid data in a form
-Feedback messages (success, failure)
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
 
-
-Reports/Export
-
-Print or export to PDF/Excel — admins will definitely need this
-Room occupancy report
-Student list per block
-
-
-Data validation on UI side
-
-Your C++ classes already validate, but Qt forms need to guide the user with proper input fields, error messages etc.
-
-
-The biggest ones to focus on first are authentication and core GUI screens. Everything else comes after.
+Built with ❤️ for Sidi Abdollah National School of Artificial Intelligence (ENSIA)
