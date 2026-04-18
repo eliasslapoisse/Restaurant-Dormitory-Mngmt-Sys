@@ -374,3 +374,25 @@ bool Dormitory::addStudent(const Student& s) {
     }
     return false;
 }
+
+bool Dormitory::containsStudentPhone(const std::string& phone) const {
+    for (const auto& s : getAllAssignedStudents()) {
+        if (s.getPhoneNumber() == phone) return true;
+    }
+    return false;
+}
+
+bool Dormitory::addStudent(const Student& s) {
+    // Automatically finds the first empty/available room and assigns the student
+    for (auto& block : blocks) {
+        for (int f = 0; f <= LAST_FLOOR; f++) {
+            for (int r = 1; r <= LAST_NUMBER; r++) {
+                Room* room = block.getRoom(f, r);
+                if (room && !room->isFull()) {
+                    return room->addResident(s);
+                }
+            }
+        }
+    }
+    return false;
+}
