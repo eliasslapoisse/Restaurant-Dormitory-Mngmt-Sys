@@ -138,17 +138,115 @@ UDRMS/
 
 ## Class Architecture
 
+```mermaid
+classDiagram
+    class University {
+        -name: string
+        -dormitories: vector~Dormitory~
+        -studentPool: vector~Student~
+        +enrollStudent(Student) bool
+        +assignStudentToDormitory(id, dorm) bool
+        +expelStudent(id) bool
+        +saveData(filename) bool
+        +loadData(filename) bool
+    }
+
+    class Dormitory {
+        -number: int
+        -blocks: vector~Block~
+        -restaurant: Restaurant
+        +getOccupancyRate() double
+        +assignStudentToRoom(block, floor, room, Student) bool
+        +getAvailableRooms() vector~Room~*
+        +findStudentByName(name) vector~Student~
+    }
+
+    class Block {
+        -name: string
+        -rooms: vector~vector~Room~~
+        +getRoom(floor, number) Room*
+        +getAvailableRooms() vector~Room~*
+        +isFull() bool
+    }
+
+    class Room {
+        -floor: int
+        -number: int
+        -residents: vector~Student~
+        -capacity: int
+        +isFull() bool
+        +addResident(Student) bool
+        +removeResident(id) bool
+    }
+
+    class Student {
+        -id: int
+        -firstName: string
+        -familyName: string
+        -email: string
+        -phoneNumber: string
+        -gender: string
+        -academicYear: int
+        +verifyInput(...) bool
+        +isInitialized() bool
+    }
+
+    class Restaurant {
+        -weeklyMenu: dailyMenu[7]
+        -ateBreakfast: vector~int~
+        -ateLunch: vector~int~
+        -ateDinner: vector~int~
+        +recordBreakfast(id, hour) bool
+        +recordLunch(id, hour) bool
+        +recordDinner(id, hour) bool
+        +setDailyMenu(day, b, l, d) void
+    }
+
+    class AppState {
+        +university: University
+        +activityLog: QVector~ActivityLog~
+        +complaints: QVector~Complaint~
+        +role: Role
+        +currentStudentId: int
+        +instance() AppState&
+        +logActivity(action, desc) void
+        +findStudentById(id) const Student*
+    }
+
+    class Complaint {
+        +id: int
+        +studentId: int
+        +studentName: QString
+        +dateTime: QDateTime
+        +category: QString
+        +description: QString
+        +status: QString
+        +adminReply: QString
+    }
+
+    class ActivityLog {
+        +timestamp: QDateTime
+        +action: QString
+        +description: QString
+    }
+
+    University  *--  Dormitory  : contains
+    Dormitory   *--  Block      : contains
+    Block       *--  Room       : grid of
+    Room        o--  Student    : houses 0..capacity
+    Dormitory   *--  Restaurant : has
+    University   o--  Student   : pool
+    AppState    *--  University : singleton owns
+    AppState    o--  Complaint  : manages
+    AppState    o--  ActivityLog : tracks
 ```
-University ──┬── Dormitory(*) ── Block(*) ── Room(*) ── Student(0..4)
-             └── Student(*) (pool)
-                 
-AppState (singleton) ── University
-                     ── Complaint(*)
-                     ── ActivityLog(*)
-                     
-GUI: LoginDialog → AdminMainWindow / StudentMainWindow
-                  → DashboardWidget, DormitoriesWidget, ...
-                  → dialogs: AddStudent, AssignToDorm, ...
+
+#### GUI Layer
+
+```
+LoginDialog → AdminMainWindow / StudentMainWindow
+           → DashboardWidget, DormitoriesWidget, RestaurantsWidget, ...
+           → dialogs: AddStudentDialog, AssignToDormDialog, ...
 ```
 
 ---
