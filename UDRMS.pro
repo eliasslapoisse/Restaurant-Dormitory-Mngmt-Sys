@@ -75,3 +75,4 @@ HEADERS += \
     src/dialogs/MenuEditorDialog.h
 
 RESOURCES += resources/resources.qrc
+RC_FILE = resources/resources.rc
