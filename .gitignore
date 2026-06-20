@@ -50,3 +50,6 @@ Desktop.ini
 
 # Claude
 .claude/
+
+# Local helper scripts
+copy_dlls.bat
