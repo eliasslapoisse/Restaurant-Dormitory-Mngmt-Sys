@@ -60,40 +60,6 @@
 
 ---
 
-## Installation
-
-### Windows
-
-1. Download the latest release from the [Releases](https://github.com/EliasImloul/UDRMS/releases) page
-2. Run `UDRMS.exe`
-
-### Build from Source
-
-#### Prerequisites
-
-- **Qt 6** (with `core`, `gui`, `widgets` modules)
-- **MinGW 64-bit** or MSVC compiler
-- **qmake** (included with Qt)
-
-#### Steps
-
-```bash
-git clone https://github.com/EliasImloul/UDRMS.git
-cd UDRMS
-
-# Create build directory
-mkdir build
-cd build
-
-# Configure and build
-qmake ../UDRMS.pro
-make
-```
-
-Or open `UDRMS.pro` in Qt Creator and build from the IDE.
-
----
-
 ## Project Structure
 
 ```
@@ -118,7 +84,7 @@ UDRMS/
 │   ├── resources.qrc         # Qt resource file
 │   └── styles/styles.qss     # Global stylesheet
 ├── screenshots/              # Application screenshots
-├── uml/                      # PlantUML class diagram
+├── uml/                      # UML class diagram
 ├── UDRMS.pro                 # Qt project file (qmake)
 ├── README.md
 └── LICENSE
