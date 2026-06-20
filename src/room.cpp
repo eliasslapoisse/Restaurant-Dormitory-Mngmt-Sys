@@ -83,7 +83,7 @@ bool Room::removeResident(int id) {
     if (isOccupied()) {
         if (isStudentIn(id)) {
             residents.erase(
-                remove_if(residents.begin(), residents.end(), [id](const Student& s) {
+                std::remove_if(residents.begin(), residents.end(), [id](const Student& s) {
                     return s.getId() == id;
                 }),
                 residents.end());

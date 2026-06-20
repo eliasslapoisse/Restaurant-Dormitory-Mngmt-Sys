@@ -1,12 +1,12 @@
-    #ifndef DORMITORY_H
-    #define DORMITORY_H
-    #include <vector>
-    #include <string>
-    #include "block.h"
-    #include "restaurant.h"
-    #include "student.h"
+#ifndef DORMITORY_H
+#define DORMITORY_H
+#include <vector>
+#include <string>
+#include "block.h"
+#include "restaurant.h"
+#include "student.h"
 
-    class Dormitory {
+class Dormitory {
 
         private:
             int number;

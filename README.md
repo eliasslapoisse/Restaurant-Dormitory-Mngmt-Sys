@@ -118,6 +118,7 @@ UDRMS/
 │   ├── resources.qrc         # Qt resource file
 │   └── styles/styles.qss     # Global stylesheet
 ├── screenshots/              # Application screenshots
+├── uml/                      # PlantUML class diagram
 ├── UDRMS.pro                 # Qt project file (qmake)
 ├── README.md
 └── LICENSE
@@ -132,7 +133,7 @@ UDRMS/
 | **C++17** | Core application logic |
 | **Qt 6**  | GUI framework (Widgets, Core, Gui) |
 | **qmake** | Build system |
-| **JSON**  | Data persistence (save/load) |
+| **Custom text format** | Data persistence (save/load) — pipe-delimited with section markers |
 
 ---
 

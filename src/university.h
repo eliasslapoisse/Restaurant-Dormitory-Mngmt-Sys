@@ -50,7 +50,6 @@ class University {
         bool isPhoneDuplicate(const std::string& phone) const;
 
                             // STATISTICS AND SEARCH
-         // int getTotalStudentCount() const;
         int getTotalCapacity() const;
         std::string locateStudent(int studentID);
 
