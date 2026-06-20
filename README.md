@@ -52,14 +52,11 @@
 
 ## Screenshots
 
-> Screenshots coming soon. Capture them by building and running the application.
-
-<!--
-![Login Dialog](screenshots/login.png)
+![Login Page](screenshots/loginpage.png)
 ![Admin Dashboard](screenshots/dashboard.png)
-![Dormitory Detail](screenshots/dormitory.png)
-![Student Home](screenshots/student-home.png)
--->
+![Dormitory Management](screenshots/dormitorymanagement.png)
+![Student Pool](screenshots/studentpool.png)
+![Settings](screenshots/settings.png)
 
 ---
 
@@ -67,7 +64,7 @@
 
 ### Windows
 
-1. Download the latest release from the [Releases](https://github.com/YOUR_USERNAME/UDRMS/releases) page
+1. Download the latest release from the [Releases](https://github.com/EliasImloul/UDRMS/releases) page
 2. Run `UDRMS.exe`
 
 ### Build from Source
@@ -81,7 +78,7 @@
 #### Steps
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/UDRMS.git
+git clone https://github.com/EliasImloul/UDRMS.git
 cd UDRMS
 
 # Create build directory
