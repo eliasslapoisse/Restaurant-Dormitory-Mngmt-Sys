@@ -1,0 +1,52 @@
+# Build folders
+build/
+bin/
+Debug/
+Release/
+debug/
+release/
+
+# Qt generated
+*.pro.user
+*.pro.user.*
+moc_*
+qrc_*
+ui_*
+.qmake.stash
+Makefile
+Makefile.Debug
+Makefile.Release
+object_script.*
+
+# C++
+*.o
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.lib
+*.a
+*.dll
+
+# Qt Creator / IDE
+.qtc_clangd/
+.qtcreator/
+CMakeLists.txt.user
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vs/
+.vscode/
+.idea/
+.cproject
+.project
+
+# Claude
+.claude/
