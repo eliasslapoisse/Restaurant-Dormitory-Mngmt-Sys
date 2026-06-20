@@ -17,9 +17,6 @@
 #include <QDialog>
 #include <QMessageBox>
 
-// ═══════════════════════════════════════════════════════════════
-// RoomSquare
-// ═══════════════════════════════════════════════════════════════
 
 RoomSquare::RoomSquare(const std::string& blk, int fl, int num, QWidget* parent)
     : QFrame(parent), blockName(blk), floor(fl), roomNum(num)
@@ -82,9 +79,6 @@ void RoomSquare::mousePressEvent(QMouseEvent*) {
 void RoomSquare::enterEvent(QEnterEvent*) { setStyleSheet(styleSheet()); }
 void RoomSquare::leaveEvent(QEvent*)      { refreshColor(); }
 
-// ═══════════════════════════════════════════════════════════════
-// RoomInfoPanel
-// ═══════════════════════════════════════════════════════════════
 
 RoomInfoPanel::RoomInfoPanel(QWidget* parent) : QFrame(parent) {
     setObjectName("roomInfoPanel");
@@ -102,7 +96,7 @@ void RoomInfoPanel::buildUi() {
     layout->setContentsMargins(20, 18, 20, 18);
     layout->setSpacing(0);
 
-    // ── Header ────────────────────────────────────────────────
+
     auto* detailsTag = new QLabel("ROOM DETAILS", this);
     detailsTag->setStyleSheet("QLabel { font-size:10px; font-weight:bold; color:#9CA3AF;"
                               "  letter-spacing:1.5px; background:transparent; }");
@@ -126,7 +120,6 @@ void RoomInfoPanel::buildUi() {
     layout->addLayout(headerRow);
     layout->addSpacing(20);
 
-    // ── Separator ────────────────────────────────────────────
     auto* sep1 = new QFrame(this);
     sep1->setFrameShape(QFrame::HLine);
     sep1->setFixedHeight(1);
@@ -134,7 +127,7 @@ void RoomInfoPanel::buildUi() {
     layout->addWidget(sep1);
     layout->addSpacing(16);
 
-    // ── Capacity section ──────────────────────────────────────
+
     auto* capTitle = new QLabel("Capacity", this);
     capTitle->setStyleSheet("QLabel { font-size:13px; font-weight:bold; color:#111827; background:transparent; }");
     layout->addWidget(capTitle);
@@ -154,7 +147,6 @@ void RoomInfoPanel::buildUi() {
     layout->addWidget(capacityOccLabel);
     layout->addSpacing(20);
 
-    // ── Separator ────────────────────────────────────────────
     auto* sep2 = new QFrame(this);
     sep2->setFrameShape(QFrame::HLine);
     sep2->setFixedHeight(1);
@@ -162,7 +154,7 @@ void RoomInfoPanel::buildUi() {
     layout->addWidget(sep2);
     layout->addSpacing(16);
 
-    // ── Residents section ─────────────────────────────────────
+
     residentsContainer = new QWidget(this);
     residentsContainer->setStyleSheet("QWidget { background:transparent; }");
     auto* resLayout = new QVBoxLayout(residentsContainer);
@@ -180,7 +172,7 @@ void RoomInfoPanel::buildUi() {
 
     layout->addStretch();
 
-    // ── Add Student button ────────────────────────────────────
+
     addBtn = new QPushButton("+ Add Student", this);
     addBtn->setFixedHeight(46);
     addBtn->setCursor(Qt::PointingHandCursor);
@@ -446,9 +438,6 @@ void RoomInfoPanel::onClearRoom() {
     emit dataChanged();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// DormDetailWidget
-// ═══════════════════════════════════════════════════════════════
 
 DormDetailWidget::DormDetailWidget(QWidget* parent) : QWidget(parent) {
     memset(roomSquares, 0, sizeof(roomSquares));
@@ -468,7 +457,7 @@ void DormDetailWidget::buildUi() {
     mainLayout->setContentsMargins(28, 20, 28, 20);
     mainLayout->setSpacing(14);
 
-    // ── Top bar ───────────────────────────────────────────────
+
     auto* topBar = new QHBoxLayout;
     auto* backBtn = new QPushButton("← Back", mainContent);
     backBtn->setFlat(true);
@@ -529,7 +518,7 @@ void DormDetailWidget::buildUi() {
 
     mainLayout->addLayout(topBar);
 
-    // ── Block selector (underline tabs) ───────────────────────
+
     blockButtonBar = new QWidget(mainContent);
     blockButtonBar->setStyleSheet("QWidget { background:transparent; }");
     auto* blockLayout = new QHBoxLayout(blockButtonBar);
@@ -551,7 +540,7 @@ void DormDetailWidget::buildUi() {
     blockLayout->addStretch();
     mainLayout->addWidget(blockButtonBar);
 
-    // ── Block stats card ──────────────────────────────────────────
+
     auto* statsCard = new QFrame(mainContent);
     statsCard->setObjectName("blockStatsCard");
     statsCard->setStyleSheet(
@@ -608,7 +597,7 @@ void DormDetailWidget::buildUi() {
 
     mainLayout->addWidget(statsCard);
 
-    // ── Floor selector (pill buttons) ─────────────────────────
+
     floorButtonBar = new QWidget(mainContent);
     floorButtonBar->setStyleSheet("QWidget { background:transparent; }");
     auto* floorLayout = new QHBoxLayout(floorButtonBar);
@@ -650,7 +639,7 @@ void DormDetailWidget::buildUi() {
     legendRow->addStretch();
     mainLayout->addLayout(legendRow);
 
-    // ── Room grid ──────────────────────────────────────────────
+
     auto* gridScroll = new QScrollArea(mainContent);
     gridScroll->setWidgetResizable(true);
     gridScroll->setFrameShape(QFrame::NoFrame);
@@ -676,7 +665,7 @@ void DormDetailWidget::buildUi() {
 
     outerLayout->addWidget(mainContent, 1);
 
-    // ── Info panel (right) ─────────────────────────────────────
+
     infoPanel = new RoomInfoPanel(this);
     connect(infoPanel, &RoomInfoPanel::dataChanged, this, &DormDetailWidget::refresh);
     outerLayout->addWidget(infoPanel);

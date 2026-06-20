@@ -9,7 +9,7 @@
 #include <QEnterEvent>
 #include <QHBoxLayout>
 
-// ── Small colored square representing one room ──────────────────────────────
+// Small colored square representing one room
 class RoomSquare : public QFrame {
     Q_OBJECT
 public:
@@ -27,7 +27,7 @@ protected:
     void leaveEvent(QEvent*) override;
 };
 
-// ── Right-side slide-in panel ────────────────────────────────────────────────
+// Right-side slide-in panel
 class RoomInfoPanel : public QFrame {
     Q_OBJECT
 public:
@@ -63,7 +63,7 @@ private:
     void refreshResidents();
 };
 
-// ── Main dorm detail widget ──────────────────────────────────────────────────
+// Main dorm detail widget
 class DormDetailWidget : public QWidget {
     Q_OBJECT
 public:

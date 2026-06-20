@@ -41,18 +41,15 @@ void StudentComplaintsWidget::buildUi() {
     mainLayout->setContentsMargins(28, 28, 28, 28);
     mainLayout->setSpacing(20);
 
-    // ── Page title ──────────────────────────────────────────────────────────────
     auto* pageTitle = new QLabel("Complaints", content);
     pageTitle->setStyleSheet(
         "QLabel { font-size:26px; font-weight:bold; color:#111827; background:transparent; }");
     mainLayout->addWidget(pageTitle);
 
-    // ── Two columns ─────────────────────────────────────────────────────────────
     auto* colRow = new QHBoxLayout;
     colRow->setSpacing(16);
     colRow->setAlignment(Qt::AlignTop);
 
-    // ── Left: Submit New Complaint ──────────────────────────────────────────────
     auto* submitCard = new QFrame(content);
     submitCard->setStyleSheet("QFrame { background:white; border-radius:14px; border:none; }");
     submitCard->setGraphicsEffect(cmpShadow(submitCard));
@@ -144,7 +141,6 @@ void StudentComplaintsWidget::buildUi() {
 
     colRow->addWidget(submitCard, 1);
 
-    // ── Right: My Complaints ────────────────────────────────────────────────────
     auto* histCard = new QFrame(content);
     histCard->setStyleSheet("QFrame { background:white; border-radius:14px; border:none; }");
     histCard->setGraphicsEffect(cmpShadow(histCard));

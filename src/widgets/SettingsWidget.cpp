@@ -33,7 +33,7 @@ void SettingsWidget::buildUi() {
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
 
-    // ── Gradient header ────────────────────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(130);
     header->setStyleSheet(
@@ -61,7 +61,7 @@ void SettingsWidget::buildUi() {
 
     outer->addWidget(header);
 
-    // ── Scrollable body ────────────────────────────────────────────────────────
+
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -75,7 +75,7 @@ void SettingsWidget::buildUi() {
     mainLayout->setContentsMargins(28, 24, 28, 32);
     mainLayout->setSpacing(20);
 
-    // ── Card shadow helper ─────────────────────────────────────────────────────
+
     auto makeShadow = [](QWidget* w, QColor c = QColor(0,0,0,18)) {
         auto* s = new QGraphicsDropShadowEffect(w);
         s->setBlurRadius(22);
@@ -84,7 +84,7 @@ void SettingsWidget::buildUi() {
         return s;
     };
 
-    // ── Shared spinner style ───────────────────────────────────────────────────
+
     const QString spinSS =
         "QSpinBox { border:1.5px solid #E9ECEF; border-radius:10px;"
         "  padding:6px 14px; background:white; font-size:14px;"
@@ -96,7 +96,7 @@ void SettingsWidget::buildUi() {
         "QSpinBox::up-arrow    { width:0; height:0; }"
         "QSpinBox::down-arrow  { width:0; height:0; }";
 
-    // ── Card builder ───────────────────────────────────────────────────────────
+
     struct CardParts { QFrame* card; QVBoxLayout* body; };
     auto makeCard = [&](const QString& emoji, const QString& iconBg,
                         const QString& title, const QString& sub,
@@ -154,9 +154,7 @@ void SettingsWidget::buildUi() {
         return { card, cl };
     };
 
-    // ══════════════════════════════════════════════════════════════════════════
     // 1. Data Management
-    // ══════════════════════════════════════════════════════════════════════════
     {
         auto parts = makeCard("≡", "", "Data Management", "Save and restore your university data");
 
@@ -196,9 +194,7 @@ void SettingsWidget::buildUi() {
         mainLayout->addWidget(parts.card);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
     // 2. Room Configuration
-    // ══════════════════════════════════════════════════════════════════════════
     {
         auto parts = makeCard("≡", "", "Room Configuration", "Maximum number of students per room");
 
@@ -233,9 +229,7 @@ void SettingsWidget::buildUi() {
         mainLayout->addWidget(parts.card);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
     // 3. Restaurant Hours
-    // ══════════════════════════════════════════════════════════════════════════
     {
         auto parts = makeCard("≡", "", "Restaurant Hours", "Opening and closing times for each meal service");
 
@@ -327,9 +321,7 @@ void SettingsWidget::buildUi() {
         mainLayout->addWidget(parts.card);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
     // 4. Danger Zone
-    // ══════════════════════════════════════════════════════════════════════════
     {
         auto parts = makeCard("!", "", "Danger Zone", "Destructive actions — cannot be undone", true);
 
@@ -366,7 +358,7 @@ void SettingsWidget::refresh() {
     capacitySpin->setValue(Room::getCapacity());
 }
 
-// ── Dialog helpers — same pattern as StudentDetailDialog::confirmAction ────────
+
 static void showInfo(QWidget* parent, const QString& title, const QString& msg,
                      bool danger = false)
 {
@@ -424,7 +416,7 @@ static bool showConfirm(QWidget* parent, const QString& title, const QString& ms
     return dlg.exec() == QDialog::Accepted;
 }
 
-// ── Persistence helpers ────────────────────────────────────────────────────────
+
 static QString escapeField(const QString& s) {
     return QString(s).replace("|", "{PIPE}").replace("\n", "{NL}");
 }

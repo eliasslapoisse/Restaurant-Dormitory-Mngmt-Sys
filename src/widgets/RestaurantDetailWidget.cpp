@@ -29,7 +29,7 @@ void RestaurantDetailWidget::buildUi() {
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
-    // ── Top section ────────────────────────────────────────────
+
     auto* topSection = new QWidget(this);
     topSection->setStyleSheet("QWidget { background:#F8F9FA; }");
     auto* topL = new QVBoxLayout(topSection);
@@ -65,7 +65,7 @@ void RestaurantDetailWidget::buildUi() {
 
     mainLayout->addWidget(topSection);
 
-    // ── Tab widget ─────────────────────────────────────────────
+
     tabs = new QTabWidget(this);
     tabs->setStyleSheet(
         "QTabWidget::pane { border:none; background:#F8F9FA; }"
@@ -75,7 +75,7 @@ void RestaurantDetailWidget::buildUi() {
         "  border-bottom:2px solid #F7931E; }"
         "QTabBar::tab:hover:!selected { color:#374151; }");
 
-    // ── Tab 1: Weekly Menu ──────────────────────────────────────
+
     auto* menuTab = new QWidget;
     menuTab->setStyleSheet("QWidget { background:#F8F9FA; }");
     auto* menuLayout = new QVBoxLayout(menuTab);
@@ -92,7 +92,7 @@ void RestaurantDetailWidget::buildUi() {
     menuCardLayout->setContentsMargins(0, 0, 0, 0);
     menuCardLayout->setSpacing(0);
 
-    // ── Custom header row ──────────────────────────────────────
+
     auto* hdrWidget = new QWidget(menuCard);
     hdrWidget->setStyleSheet("QWidget { background:#F9FAFB; border-radius:16px 16px 0 0; }");
     hdrWidget->setFixedHeight(54);
@@ -141,7 +141,7 @@ void RestaurantDetailWidget::buildUi() {
     };
     menuCardLayout->addWidget(makeSep(menuCard));
 
-    // ── Day rows ───────────────────────────────────────────────
+
     const char* dayNames[] = { "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday" };
     for (int d = 0; d < 7; d++) {
         if (d > 0) menuCardLayout->addWidget(makeSep(menuCard));
@@ -216,7 +216,7 @@ void RestaurantDetailWidget::buildUi() {
     menuLayout->addWidget(menuCard);
     tabs->addTab(menuTab, "Weekly Menu");
 
-    // ── Tab 2: Meal Records ─────────────────────────────────────
+
     auto* recordsTab = new QWidget;
     recordsTab->setStyleSheet("QWidget { background:#F8F9FA; }");
     auto* recOuterLayout = new QVBoxLayout(recordsTab);

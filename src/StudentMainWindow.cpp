@@ -40,7 +40,7 @@ void StudentMainWindow::buildUi() {
     root->setContentsMargins(0, 0, 0, 0);
     root->setSpacing(0);
 
-    // ── Nav bar ───────────────────────────────────────────────────────────────
+
     auto* nav = new QFrame(this);
     nav->setFixedHeight(56);
     nav->setStyleSheet("QFrame { background:white; border-bottom:1px solid #E9ECEF; }");
@@ -75,7 +75,7 @@ void StudentMainWindow::buildUi() {
 
     root->addWidget(nav);
 
-    // ── Unified dashboard ─────────────────────────────────────────────────────
+
     dashWidget = new StudentHomeWidget(this);
     root->addWidget(dashWidget, 1);
 }

@@ -10,7 +10,7 @@
 #include <QMouseEvent>
 #include <functional>
 
-// ── Clickable student card (no Q_OBJECT — uses std::function callbacks) ────
+
 class StudentCard : public QFrame {
 public:
     int  studentId;
@@ -91,7 +91,6 @@ private:
     }
 };
 
-// ── StudentPickerDialog ─────────────────────────────────────────────────────
 
 StudentPickerDialog::StudentPickerDialog(bool showAssigned, QWidget* parent)
     : QDialog(parent), m_showAssigned(showAssigned)
@@ -106,7 +105,7 @@ void StudentPickerDialog::buildUi() {
     ml->setContentsMargins(0, 0, 0, 0);
     ml->setSpacing(0);
 
-    // ── Gradient header ──────────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(96);
     header->setStyleSheet(
@@ -124,7 +123,7 @@ void StudentPickerDialog::buildUi() {
     hl->addWidget(subLbl);
     ml->addWidget(header);
 
-    // ── Body ─────────────────────────────────────────────────────────
+
     auto* body = new QWidget(this);
     body->setStyleSheet("QWidget { background:white; }");
     auto* bl = new QVBoxLayout(body);
@@ -137,7 +136,7 @@ void StudentPickerDialog::buildUi() {
     searchEdit->setStyleSheet(Style::inputSS());
     bl->addWidget(searchEdit);
 
-    // ── Scrollable cards area ────────────────────────────────────────
+
     auto* scroll = new QScrollArea(body);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -153,7 +152,7 @@ void StudentPickerDialog::buildUi() {
     scroll->setWidget(cardsContainer);
     bl->addWidget(scroll, 1);
 
-    // ── Separator + buttons ──────────────────────────────────────────
+
     auto* sep = new QFrame(body);
     sep->setFrameShape(QFrame::HLine);
     sep->setFixedHeight(1);

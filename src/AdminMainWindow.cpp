@@ -98,7 +98,7 @@ QWidget* AdminMainWindow::buildSidebar() {
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
-    // ── Header (gradient) ──────────────────────────────────────
+
     auto* header = new QFrame(sidebar);
     header->setFixedHeight(80);
     header->setStyleSheet(QString("QFrame { background:%1; }").arg(Style::gradientCSS("0","0","1","1")));
@@ -115,7 +115,7 @@ QWidget* AdminMainWindow::buildSidebar() {
 
     layout->addWidget(header);
 
-    // ── Nav items ──────────────────────────────────────────────
+
     struct NavItem { const char* icon; const char* label; int page; };
     static const NavItem items[] = {
         { "▣", "Dashboard",    P_DASHBOARD },
@@ -149,7 +149,7 @@ QWidget* AdminMainWindow::buildSidebar() {
     navLayout->addStretch();
     layout->addWidget(navContainer, 1);
 
-    // ── Logout ─────────────────────────────────────────────────
+
     auto* logoutFrame = new QFrame(sidebar);
     logoutFrame->setStyleSheet("QFrame { border-top:1px solid #E9ECEF; }");
     auto* logoutLayout = new QVBoxLayout(logoutFrame);

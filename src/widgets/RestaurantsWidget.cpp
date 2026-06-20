@@ -22,7 +22,6 @@ void RestaurantsWidget::buildUi() {
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
 
-    // ── Gradient header ────────────────────────────────────────
     auto* header = new QFrame(this);
     header->setFixedHeight(130);
     header->setStyleSheet(
@@ -46,7 +45,6 @@ void RestaurantsWidget::buildUi() {
 
     outer->addWidget(header);
 
-    // ── Body: grid of restaurant cards ────────────────────────
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -93,7 +91,6 @@ QWidget* RestaurantsWidget::makeRestCard(int dormNum, int index) {
     layout->setContentsMargins(22, 20, 22, 18);
     layout->setSpacing(0);
 
-    // ── Header ────────────────────────────────────────────────
     auto* headerRow = new QHBoxLayout;
     headerRow->setSpacing(12);
 
@@ -124,7 +121,6 @@ QWidget* RestaurantsWidget::makeRestCard(int dormNum, int index) {
     layout->addLayout(headerRow);
     layout->addSpacing(22);
 
-    // ── Meal rows ─────────────────────────────────────────────
     Dormitory* dorm = AppState::instance().university.getDormitory(dormNum);
     if (dorm) {
         const Restaurant& rest = dorm->getRestaurant();
@@ -174,7 +170,6 @@ QWidget* RestaurantsWidget::makeRestCard(int dormNum, int index) {
 
     layout->addStretch();
 
-    // ── Footer ────────────────────────────────────────────────
     auto* sep = new QFrame(card);
     sep->setFrameShape(QFrame::HLine);
     sep->setFixedHeight(1);

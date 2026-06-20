@@ -14,9 +14,7 @@
 #include <cstdlib>
 #include <ctime>
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AnimBackground
-// ─────────────────────────────────────────────────────────────────────────────
+
 static int rn(int n) { return n > 0 ? rand() % n : 0; }
 
 AnimBackground::AnimBackground(QWidget* parent) : QWidget(parent) {
@@ -79,7 +77,7 @@ void AnimBackground::paintEvent(QPaintEvent*) {
     p.setRenderHint(QPainter::Antialiasing);
     const float W = (float)width(), H = (float)height();
 
-    // ── Deep dark-orange gradient base ────────────────────────────
+
     QLinearGradient bg(0, 0, W * 0.6, H);
     bg.setColorAt(0.00, QColor("#0C0100"));
     bg.setColorAt(0.30, QColor("#300800"));
@@ -93,7 +91,7 @@ void AnimBackground::paintEvent(QPaintEvent*) {
     topGlow.setColorAt(1.0, QColor(0, 0, 0, 0));
     p.fillRect(rect(), topGlow);
 
-    // ── Glowing animated orbs ─────────────────────────────────────
+
     for (auto& orb : m_orbs) {
         float cx = orb.xf * W + std::sin(m_t * orb.spd + orb.ph) * 70.f;
         float cy = orb.yf * H + std::cos(m_t * orb.spd * 0.62f + orb.ph) * 50.f;
@@ -111,31 +109,31 @@ void AnimBackground::paintEvent(QPaintEvent*) {
         p.restore();
     }
 
-    // ── Dot grid ──────────────────────────────────────────────────
+
     p.setPen(QPen(QColor(255, 255, 255, 20), 1.5));
     const int GRID = 32;
     for (int gx = GRID / 2; gx < (int)W; gx += GRID)
         for (int gy = GRID / 2; gy < (int)H; gy += GRID)
             p.drawPoint(QPointF(gx, gy));
 
-    // ── Concentric rings — bottom right ───────────────────────────
+
     p.setPen(QPen(QColor(255, 255, 255, 11), 1));
     p.setBrush(Qt::NoBrush);
     QPointF br(W * 0.93f, H * 0.90f);
     for (int r : {280, 210, 148, 92, 46})
         p.drawEllipse(br, (qreal)r, (qreal)r);
 
-    // ── Concentric rings — top left ───────────────────────────────
+
     QPointF tl(-W * 0.05f, H * 0.07f);
     for (int r : {185, 130, 78, 38})
         p.drawEllipse(tl, (qreal)r, (qreal)r);
 
-    // ── Diagonal scan lines ────────────────────────────────────────
+
     p.setPen(QPen(QColor(255, 255, 255, 5), 1));
     for (float i = -(float)H; i < W + H; i += 24.f)
         p.drawLine(QPointF(i, 0), QPointF(i + H, H));
 
-    // ── Floating sparks ───────────────────────────────────────────
+
     p.setPen(Qt::NoPen);
     for (auto& s : m_sparks) {
         float py = s.y * H;
@@ -149,9 +147,7 @@ void AnimBackground::paintEvent(QPaintEvent*) {
 
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// FloatInput
-// ─────────────────────────────────────────────────────────────────────────────
+
 FloatInput::FloatInput(const QString& labelText, bool isPassword, QWidget* parent)
     : QFrame(parent), m_isPass(isPassword)
 {
@@ -277,9 +273,7 @@ void FloatInput::toggleEye() {
     m_eye->setText(hidden ? "Hide" : "Show");
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// LoginDialog
-// ─────────────────────────────────────────────────────────────────────────────
+
 LoginDialog::LoginDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle("UDRMS");
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
@@ -298,7 +292,7 @@ void LoginDialog::showEvent(QShowEvent* e) {
 }
 
 void LoginDialog::buildUi() {
-    // ── AnimBackground fills the entire dialog ────────────────────
+
     auto* bg = new AnimBackground(this);
     auto* outerLayout = new QVBoxLayout(this);
     outerLayout->setContentsMargins(0, 0, 0, 0);
@@ -323,9 +317,7 @@ void LoginDialog::buildUi() {
     bgLayout->setSpacing(0);
     bgLayout->addStretch(1);
 
-    // ══════════════════════════════════════════════════════════════
     // FUSED CARD — branding left | form right, one unified glass pane
-    // ══════════════════════════════════════════════════════════════
     auto* card = new QFrame(bg);
     card->setObjectName("loginCard");
     card->setFixedWidth(1180);
@@ -338,7 +330,7 @@ void LoginDialog::buildUi() {
     cardRow->setContentsMargins(0, 0, 0, 0);
     cardRow->setSpacing(0);
 
-    // ── LEFT: branding panel ─────────────────────────────────────
+
     auto* leftW = new QWidget(card);
     leftW->setFixedWidth(450);
     leftW->setStyleSheet("background:transparent;");
@@ -423,7 +415,7 @@ void LoginDialog::buildUi() {
     vsep->setFixedWidth(1);
     vsep->setStyleSheet("QWidget { background:rgba(255,255,255,0.10); }");
 
-    // ── RIGHT: form panel ────────────────────────────────────────
+
     auto* rightW = new QWidget(card);
     rightW->setStyleSheet("background:transparent;");
     auto* cl = new QVBoxLayout(rightW);
@@ -525,7 +517,7 @@ void LoginDialog::buildUi() {
         return btn;
     };
 
-    // ── Admin form — inputs only, button lives outside the stack ──
+
     auto* adminW = new QWidget;
     adminW->setStyleSheet("background:transparent;");
     auto* al = new QVBoxLayout(adminW);
@@ -548,7 +540,7 @@ void LoginDialog::buildUi() {
 
     connect(m_adminPass->edit(), &QLineEdit::returnPressed, this, &LoginDialog::onAdminLogin);
 
-    // ── Student form — inputs only ────────────────────────────────
+
     auto* stuW = new QWidget;
     stuW->setStyleSheet("background:transparent;");
     auto* sfl = new QVBoxLayout(stuW);
@@ -581,7 +573,7 @@ void LoginDialog::buildUi() {
     connect(m_tabAdmin, &QPushButton::clicked, this, &LoginDialog::switchToAdmin);
     connect(m_tabStu,   &QPushButton::clicked, this, &LoginDialog::switchToStudent);
 
-    // ── Shared Sign In button — always fixed below the stack ──────
+
     cl->addSpacing(20);
     auto* signInBtn = makeSignInBtn("Sign In  →", rightW);
     connect(signInBtn, &QPushButton::clicked, this, [this] {
@@ -630,9 +622,7 @@ void LoginDialog::buildUi() {
     bgLayout->addStretch(1);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Tab switching with animated underline
-// ─────────────────────────────────────────────────────────────────────────────
+
 void LoginDialog::setActiveTab(int idx) {
     m_stack->setCurrentIndex(idx);
 
@@ -677,9 +667,7 @@ void LoginDialog::switchToStudent() {
     m_hintLbl->setText("Password is your numeric Student ID");
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Shake animation (pos-based, returns to origin)
-// ─────────────────────────────────────────────────────────────────────────────
+
 void LoginDialog::shakeWidget(QWidget* w) {
     const QPoint orig = w->pos();
     auto* group = new QSequentialAnimationGroup(w);
@@ -702,9 +690,7 @@ void LoginDialog::flashError(QLabel* lbl) {
     });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Auth handlers
-// ─────────────────────────────────────────────────────────────────────────────
+
 void LoginDialog::onAdminLogin() {
     m_adminErr->hide();
     if (m_adminPass->text() == "admin123") {

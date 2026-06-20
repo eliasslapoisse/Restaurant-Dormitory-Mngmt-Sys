@@ -37,7 +37,7 @@ void ComplaintDetailDialog::buildUi() {
     cardLayout->setSpacing(0);
     shell->addWidget(card);
 
-    // ── Gradient header ────────────────────────────────────────────
+
     auto* header = new QFrame(card);
     header->setFixedHeight(70);
     header->setStyleSheet(
@@ -61,7 +61,7 @@ void ComplaintDetailDialog::buildUi() {
     hLayout->addWidget(closeBtn);
     cardLayout->addWidget(header);
 
-    // ── Body ───────────────────────────────────────────────────────
+
     auto* body = new QWidget(card);
     body->setStyleSheet("QWidget { background:transparent; }");
     auto* bodyLayout = new QVBoxLayout(body);

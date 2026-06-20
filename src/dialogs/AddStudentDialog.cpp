@@ -62,7 +62,7 @@ void AddStudentDialog::buildUi() {
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
-    // ── Gradient header ──────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(106);
     header->setStyleSheet(
@@ -83,7 +83,7 @@ void AddStudentDialog::buildUi() {
 
     mainLayout->addWidget(header);
 
-    // ── Form body ─────────────────────────────────────────────────
+
     auto* body = new QWidget(this);
     body->setStyleSheet("QWidget { background:white; }");
     auto* bodyLayout = new QVBoxLayout(body);

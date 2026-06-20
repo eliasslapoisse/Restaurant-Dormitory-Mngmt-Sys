@@ -21,8 +21,6 @@
 #include <QGraphicsDropShadowEffect>
 #include <algorithm>
 
-// ── Helpers (identical conventions to StudentPoolWidget) ──────────────────────
-
 static QGraphicsDropShadowEffect* makeShadow(QObject* parent) {
     auto* e = new QGraphicsDropShadowEffect(parent);
     e->setBlurRadius(18);
@@ -170,8 +168,6 @@ static QString categoryIcon(const QString& cat) {
     return "📋";
 }
 
-// ── MaintenanceWidget ─────────────────────────────────────────────────────────
-
 MaintenanceWidget::MaintenanceWidget(QWidget* parent) : QWidget(parent) {
     buildUi();
     setAutoFillBackground(true);
@@ -185,7 +181,6 @@ void MaintenanceWidget::buildUi() {
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
 
-    // ── Gradient header ───────────────────────────────────────────────────────
     auto* header = new QFrame(this);
     header->setFixedHeight(130);
     header->setStyleSheet(
@@ -212,7 +207,6 @@ void MaintenanceWidget::buildUi() {
 
     outer->addWidget(header);
 
-    // ── Body ──────────────────────────────────────────────────────────────────
     auto* body = new QWidget(this);
     body->setAutoFillBackground(true);
     { QPalette bp = body->palette(); bp.setColor(QPalette::Window, QColor("#F8F9FA")); body->setPalette(bp); }
@@ -221,7 +215,6 @@ void MaintenanceWidget::buildUi() {
     bodyLayout->setContentsMargins(28, 18, 28, 28);
     bodyLayout->setSpacing(16);
 
-    // ── Filter bar ────────────────────────────────────────────────────────────
     auto* filterCard = new QFrame(body);
     filterCard->setStyleSheet("QFrame { background:white; border-radius:14px; border:1px solid #E9ECEF; }");
     filterCard->setGraphicsEffect(makeShadow(filterCard));
@@ -246,7 +239,6 @@ void MaintenanceWidget::buildUi() {
     connect(statusCombo, qOverload<int>(&QComboBox::currentIndexChanged),
             this, [this](int){ applyFilters(); });
 
-    // ── Table ─────────────────────────────────────────────────────────────────
     auto* tableWrap = new ClipFrame(16, body);
     tableWrap->setStyleSheet("QFrame { background:white; border-radius:16px; border:1px solid #E9ECEF; }");
     tableWrap->setGraphicsEffect(makeShadow(tableWrap));

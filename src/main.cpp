@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
         app.setStyleSheet(ts.readAll());
     }
 
-    // Trigger AppState initialisation (creates 6 dormitories)
+
     AppState::instance();
 
     while (true) {

@@ -82,7 +82,6 @@ static bool confirmAction(QWidget* parent, const QString& title, const QString& 
     return dlg.exec() == QDialog::Accepted;
 }
 
-// ── StudentDetailDialog ──────────────────────────────────────────────────────
 
 StudentDetailDialog::StudentDetailDialog(int studentId, QWidget* parent)
     : QDialog(parent), m_studentId(studentId)
@@ -98,7 +97,7 @@ void StudentDetailDialog::buildUi() {
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
-    // ── Gradient header ──────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(100);
     header->setStyleSheet(
@@ -120,14 +119,14 @@ void StudentDetailDialog::buildUi() {
 
     mainLayout->addWidget(header);
 
-    // ── Two-column body ──────────────────────────────────────────
+
     auto* body = new QWidget(this);
     body->setStyleSheet("QWidget { background:white; }");
     auto* bodyRow = new QHBoxLayout(body);
     bodyRow->setContentsMargins(0, 0, 0, 0);
     bodyRow->setSpacing(0);
 
-    // ── LEFT: Information form ──────────────────────────────────
+
     auto* leftCol = new QWidget(body);
     leftCol->setStyleSheet("QWidget { background:white; }");
     auto* leftLayout = new QVBoxLayout(leftCol);
@@ -203,14 +202,14 @@ void StudentDetailDialog::buildUi() {
 
     bodyRow->addWidget(leftCol, 55);
 
-    // ── Vertical divider ────────────────────────────────────────
+
     auto* div = new QFrame(body);
     div->setFrameShape(QFrame::VLine);
     div->setFixedWidth(1);
     div->setStyleSheet("QFrame { background:#F3F4F6; border:none; }");
     bodyRow->addWidget(div);
 
-    // ── RIGHT: Status & Assignment ───────────────────────────────
+
     auto* rightCol = new QWidget(body);
     rightCol->setStyleSheet("QWidget { background:#FAFAFA; }");
     auto* rightLayout = new QVBoxLayout(rightCol);

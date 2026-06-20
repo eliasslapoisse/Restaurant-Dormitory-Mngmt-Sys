@@ -13,7 +13,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <vector>
 
-// ── Animated orbit badge: rotating dashed rings + glow circle + icon ────────
+// Animated orbit badge: rotating dashed rings + glow circle + icon
 class GlowBadge : public QWidget {
     Q_OBJECT
     QTimer* m_timer;
@@ -77,7 +77,7 @@ protected:
     }
 };
 
-// ── Glowing metric circle: mini-badge style ──────────────────────────────────
+// Glowing metric circle: mini-badge style
 class MetricCircle : public QWidget {
     QString m_num, m_lbl;
 public:
@@ -124,7 +124,7 @@ protected:
     }
 };
 
-// ── Animated gradient background: orbs + dot grid + sparks + rings ──────────
+// Animated gradient background: orbs + dot grid + sparks + rings
 class AnimBackground : public QWidget {
     Q_OBJECT
 public:
@@ -150,7 +150,7 @@ private:
     QVector<Spark> m_sparks;
 };
 
-// ── Floating-label input with animated label + password eye toggle ───────────
+// Floating-label input with animated label + password eye toggle
 class FloatInput : public QFrame {
     Q_OBJECT
 public:
@@ -185,7 +185,7 @@ private:
     QPropertyAnimation* m_posAnim;
 };
 
-// ── Login dialog ─────────────────────────────────────────────────────────────
+// Login dialog
 class LoginDialog : public QDialog {
     Q_OBJECT
 public:

@@ -219,7 +219,7 @@ void StudentPoolWidget::buildUi() {
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
 
-    // ── Gradient header ─────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(130);
     header->setStyleSheet(
@@ -247,7 +247,7 @@ void StudentPoolWidget::buildUi() {
 
     outer->addWidget(header);
 
-    // ── Body ─────────────────────────────────────────────────────
+
     auto* body = new QWidget(this);
     body->setAutoFillBackground(true);
     { QPalette bp = body->palette(); bp.setColor(QPalette::Window, QColor("#F8F9FA")); body->setPalette(bp); }
@@ -256,7 +256,7 @@ void StudentPoolWidget::buildUi() {
     bodyLayout->setContentsMargins(28, 18, 28, 28);
     bodyLayout->setSpacing(16);
 
-    // ── Tab bar + Add Student button (same row) ───────────────────
+
     auto* tabCard = new QFrame(body);
     tabCard->setStyleSheet("QFrame { background:white; border-radius:14px; border:1px solid #E9ECEF; }");
     tabCard->setGraphicsEffect(makeShadow(tabCard));
@@ -289,7 +289,7 @@ void StudentPoolWidget::buildUi() {
     bodyLayout->addWidget(tabCard);
     updateTabStyles();
 
-    // ── Filter bar ────────────────────────────────────────────────
+
     auto* filterCard = new QFrame(body);
     filterCard->setStyleSheet("QFrame { background:white; border-radius:14px; border:1px solid #E9ECEF; }");
     filterCard->setGraphicsEffect(makeShadow(filterCard));
@@ -318,7 +318,7 @@ void StudentPoolWidget::buildUi() {
     connect(yearCombo,   &QComboBox::currentTextChanged, this, [this](const QString&){ applyFilters(); });
     connect(genderCombo, &QComboBox::currentTextChanged, this, [this](const QString&){ applyFilters(); });
 
-    // ── Bulk action bar ────────────────────────────────────────────
+
     auto* bulkFrame = new QFrame(body);
     bulkFrame->setObjectName("bulkBar");
     bulkFrame->setStyleSheet("QFrame#bulkBar { background:white; border-radius:12px; border:1px solid #E9ECEF; }");
@@ -358,7 +358,7 @@ void StudentPoolWidget::buildUi() {
     });
     connect(expelSelectedBtn, &QPushButton::clicked, this, &StudentPoolWidget::onExpelSelected);
 
-    // ── Table ─────────────────────────────────────────────────────
+
     // Wrapper gives real rounded corners + shadow (table border-radius alone doesn't clip cells)
     auto* tableWrap = new ClipFrame(16, body);
     tableWrap->setStyleSheet("QFrame { background:white; border-radius:16px; border:1px solid #E9ECEF; }");

@@ -18,7 +18,7 @@ void StudentRoomWidget::buildUi() {
 
     stack = new QStackedWidget(this);
 
-    // ── Page 0: Not assigned ───────────────────────────────────
+
     auto* unassignedPage = new QWidget;
     auto* uLayout = new QVBoxLayout(unassignedPage);
     uLayout->setAlignment(Qt::AlignCenter);
@@ -45,7 +45,7 @@ void StudentRoomWidget::buildUi() {
 
     stack->addWidget(unassignedPage); // index 0
 
-    // ── Page 1: Assigned ──────────────────────────────────────
+
     auto* assignedPage = new QWidget;
     auto* scroll = new QScrollArea(assignedPage);
     scroll->setWidgetResizable(true);

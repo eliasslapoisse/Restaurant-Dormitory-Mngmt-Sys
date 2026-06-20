@@ -48,7 +48,6 @@ protected:
     }
 };
 
-// ── AssignToDormDialog ──────────────────────────────────────────────────────
 
 AssignToDormDialog::AssignToDormDialog(int studentId, QWidget* parent)
     : QDialog(parent), m_studentId(studentId)

@@ -15,7 +15,6 @@
 #include <QDate>
 #include <QPalette>
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
 static QGraphicsDropShadowEffect* mkShadow(QWidget* w, int blur = 24, int alpha = 30) {
     auto* s = new QGraphicsDropShadowEffect(w);
     s->setBlurRadius(blur);
@@ -60,9 +59,7 @@ void StudentHomeWidget::buildUi() {
     root->setContentsMargins(0, 0, 0, 0);
     root->setSpacing(0);
 
-    // ════════════════════════════════════════════════════════════════════════════
     // BANNER
-    // ════════════════════════════════════════════════════════════════════════════
     auto* banner = new QFrame(this);
     banner->setStyleSheet(
         QString("QFrame { background:%1; border-radius:0; }")
@@ -134,9 +131,7 @@ void StudentHomeWidget::buildUi() {
     bl->addWidget(assignCard, 0, Qt::AlignVCenter);
     root->addWidget(banner);
 
-    // ════════════════════════════════════════════════════════════════════════════
     // SCROLLABLE CONTENT
-    // ════════════════════════════════════════════════════════════════════════════
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -150,14 +145,11 @@ void StudentHomeWidget::buildUi() {
     cl->setContentsMargins(28, 24, 28, 28);
     cl->setSpacing(20);
 
-    // ── Three-column row ───────────────────────────────────────────────────────
     auto* colRow = new QHBoxLayout;
     colRow->setSpacing(16);
     colRow->setAlignment(Qt::AlignTop);
 
-    // ════════════════════════════════════════
     // COL 1 — MY PROFILE
-    // ════════════════════════════════════════
     auto* profileCard = mkCard(content);
     auto* pl = new QVBoxLayout(profileCard);
     pl->setContentsMargins(24, 22, 24, 24);
@@ -212,9 +204,7 @@ void StudentHomeWidget::buildUi() {
 
     colRow->addWidget(profileCard, 3);
 
-    // ════════════════════════════════════════
     // COL 2 — TODAY'S MEALS
-    // ════════════════════════════════════════
     auto* mealsCard = mkCard(content);
     auto* ml = new QVBoxLayout(mealsCard);
     ml->setContentsMargins(24, 22, 24, 24);
@@ -296,9 +286,7 @@ void StudentHomeWidget::buildUi() {
 
     colRow->addWidget(mealsCard, 4);
 
-    // ════════════════════════════════════════
     // COL 3 — COMPLAINTS
-    // ════════════════════════════════════════
     auto* cmpCard = mkCard(content);
     auto* cpl = new QVBoxLayout(cmpCard);
     cpl->setContentsMargins(24, 22, 24, 24);
@@ -402,9 +390,7 @@ void StudentHomeWidget::buildUi() {
     colRow->addWidget(cmpCard, 4);
     cl->addLayout(colRow);
 
-    // ════════════════════════════════════════════════════════════════════════════
     // WEEKLY MENU (full-width)
-    // ════════════════════════════════════════════════════════════════════════════
     auto* weekCard = mkCard(content);
     auto* wl = new QVBoxLayout(weekCard);
     wl->setContentsMargins(24, 20, 24, 24);
@@ -504,7 +490,6 @@ void StudentHomeWidget::buildUi() {
     root->addWidget(scroll, 1);
 }
 
-// ── refresh ───────────────────────────────────────────────────────────────────
 void StudentHomeWidget::refresh() {
     auto& app = AppState::instance();
     const Student* s = app.findStudentById(app.currentStudentId);

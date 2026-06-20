@@ -15,7 +15,7 @@
 #include <QPushButton>
 #include <QGraphicsDropShadowEffect>
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+
 static QFrame* makeCard(QWidget* parent) {
     auto* f = new QFrame(parent);
     f->setObjectName("dashCard");
@@ -50,7 +50,7 @@ void DashboardWidget::buildUi() {
     mainLayout->setContentsMargins(0, 0, 0, 24);
     mainLayout->setSpacing(0);
 
-    // ── Gradient header ────────────────────────────────────────
+
     auto* header = new QFrame(content);
     header->setFixedHeight(170);
     header->setStyleSheet(
@@ -99,7 +99,7 @@ void DashboardWidget::buildUi() {
 
     mainLayout->addWidget(header);
 
-    // ── Stats cards ────────────────────────────────────────────
+
     auto* statsRow = new QHBoxLayout;
     statsRow->setContentsMargins(24, 20, 24, 0);
     statsRow->setSpacing(16);
@@ -282,7 +282,7 @@ void DashboardWidget::buildUi() {
 
     mainLayout->addLayout(statsRow);
 
-    // ── Info tiles ─────────────────────────────────────────────
+
     auto* tilesRow = new QHBoxLayout;
     tilesRow->setContentsMargins(24, 16, 24, 0);
     tilesRow->setSpacing(16);
@@ -330,7 +330,7 @@ void DashboardWidget::buildUi() {
     }
     mainLayout->addLayout(tilesRow);
 
-    // ── Quick actions ──────────────────────────────────────────
+
     auto* qaSection = new QWidget(content);
     qaSection->setStyleSheet("QWidget { background:transparent; }");
     auto* qaLayout = new QVBoxLayout(qaSection);
@@ -444,7 +444,7 @@ void DashboardWidget::buildUi() {
     qaLayout->addLayout(qaRow);
     mainLayout->addWidget(qaSection);
 
-    // ── Bottom: occupancy list + activity ──────────────────────
+
     auto* bottomRow = new QHBoxLayout;
     bottomRow->setContentsMargins(24, 16, 24, 0);
     bottomRow->setSpacing(16);

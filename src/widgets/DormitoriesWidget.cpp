@@ -61,7 +61,7 @@ void DormitoriesWidget::buildUi() {
     outer->setContentsMargins(0, 0, 0, 0);
     outer->setSpacing(0);
 
-    // ── Gradient header ─────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(150);
     header->setStyleSheet(
@@ -89,7 +89,7 @@ void DormitoriesWidget::buildUi() {
 
     outer->addWidget(header);
 
-    // ── Body: responsive grid of dorm cards ─────────────────────
+
     auto* scroll = new QScrollArea(this);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -118,7 +118,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
     layout->setContentsMargins(22, 18, 22, 18);
     layout->setSpacing(0);
 
-    // ── Top row: tag + gradient number badge ────────────────────
+
     auto* topRow = new QHBoxLayout;
     auto* dormTag = new QLabel("DORMITORY", card);
     dormTag->setStyleSheet("QLabel { font-size:10px; font-weight:bold; color:#9CA3AF;"
@@ -135,7 +135,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
     layout->addLayout(topRow);
     layout->addSpacing(6);
 
-    // ── Big orange number (old style) ────────────────────────────
+
     auto* numLbl = new QLabel(QString::number(dormNum), card);
     numLbl->setStyleSheet(
         QString("QLabel { font-size:42px; font-weight:bold; color:%1; background:transparent; }")
@@ -144,7 +144,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
 
     layout->addSpacing(14);
 
-    // ── Occupancy bar ───────────────────────────────────────────
+
     Dormitory* dorm = AppState::instance().university.getDormitory(dormNum);
     int cap  = dorm ? dorm->getTotalCapacity()  : 0;
     int occ  = dorm ? dorm->getTotalOccupancy() : 0;
@@ -173,7 +173,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
     layout->addWidget(cards[index].bar);
     layout->addSpacing(14);
 
-    // ── Stats row ───────────────────────────────────────────────
+
     auto* statsRow = new QHBoxLayout;
     statsRow->setSpacing(0);
 
@@ -204,7 +204,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
     layout->addLayout(statsRow);
     layout->addSpacing(16);
 
-    // ── Separator ───────────────────────────────────────────────
+
     auto* sep = new QFrame(card);
     sep->setFrameShape(QFrame::HLine);
     sep->setFixedHeight(1);
@@ -212,7 +212,7 @@ QWidget* DormitoriesWidget::makeDormCard(int dormNum, int index) {
     layout->addWidget(sep);
     layout->addSpacing(12);
 
-    // ── Manage button — solar flare on hover ────────────────────
+
     auto* manageBtn = new QPushButton("Manage  ›", card);
     manageBtn->setFixedHeight(36);
     manageBtn->setCursor(Qt::PointingHandCursor);

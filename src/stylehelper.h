@@ -3,7 +3,7 @@
 
 namespace Style {
 
-// ─── Colours ────────────────────────────────────────────────────────────────
+// Colours
 inline const QString PRIMARY_ORANGE = "#FF6B35";
 inline const QString PRIMARY_YELLOW = "#FDB827";
 inline const QString PRIMARY_MID    = "#F7931E";
@@ -12,7 +12,7 @@ inline const QString BORDER_COLOR   = "#E9ECEF";
 inline const QString TEXT_PRIMARY   = "#212529";
 inline const QString TEXT_SECONDARY = "#6C757D";
 
-// ─── Gradient string (for use inside gradient() calls) ──────────────────────
+// Gradient string (for use inside gradient() calls)
 inline QString gradientCSS(const QString& x1 = "0", const QString& y1 = "0",
                             const QString& x2 = "1", const QString& y2 = "0")
 {
@@ -21,7 +21,7 @@ inline QString gradientCSS(const QString& x1 = "0", const QString& y1 = "0",
            .arg(x1, y1, x2, y2);
 }
 
-// ─── Widget stylesheets ──────────────────────────────────────────────────────
+// Widget stylesheets
 inline QString cardSS() {
     return "background:white; border-radius:12px; border:1px solid #E9ECEF;";
 }

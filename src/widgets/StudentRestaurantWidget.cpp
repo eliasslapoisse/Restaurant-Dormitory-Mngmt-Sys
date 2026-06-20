@@ -31,7 +31,7 @@ void StudentRestaurantWidget::buildUi() {
     outerLayout->setContentsMargins(0, 0, 0, 0);
     outerLayout->setSpacing(0);
 
-    // ── Gradient header ──────────────────────────────────────────────────────────
+
     auto* header = new QFrame(this);
     header->setFixedHeight(130);
     header->setStyleSheet(
@@ -52,11 +52,11 @@ void StudentRestaurantWidget::buildUi() {
     hl->addWidget(subLbl);
     outerLayout->addWidget(header);
 
-    // ── Stacked body ─────────────────────────────────────────────────────────────
+
     auto* stack = new QStackedWidget(this);
     stack->setStyleSheet("QStackedWidget { background:#F5F5F5; }");
 
-    // ── Page 0: not assigned ─────────────────────────────────────────────────────
+
     notAssignedLabel = new QLabel(
         "You must be assigned to a dormitory\nto view restaurant information.", stack);
     notAssignedLabel->setAlignment(Qt::AlignCenter);
@@ -64,7 +64,7 @@ void StudentRestaurantWidget::buildUi() {
         "QLabel { color:#9CA3AF; font-size:15px; padding:40px; background:transparent; }");
     stack->addWidget(notAssignedLabel);
 
-    // ── Page 1: content ──────────────────────────────────────────────────────────
+
     auto* scroll = new QScrollArea(stack);
     scroll->setWidgetResizable(true);
     scroll->setFrameShape(QFrame::NoFrame);
@@ -78,7 +78,7 @@ void StudentRestaurantWidget::buildUi() {
     cl->setContentsMargins(28, 24, 28, 28);
     cl->setSpacing(20);
 
-    // ── Section pill helper ───────────────────────────────────────────────────────
+
     auto makePill = [&](const QString& text, QWidget* parent) {
         auto* lbl = new QLabel(text, parent);
         lbl->setStyleSheet(
@@ -88,7 +88,7 @@ void StudentRestaurantWidget::buildUi() {
         return lbl;
     };
 
-    // ── Weekly menu card ─────────────────────────────────────────────────────────
+
     auto* weekCard = new QFrame(contentWidget);
     weekCard->setStyleSheet("QFrame { background:white; border-radius:16px; border:none; }");
     weekCard->setGraphicsEffect(restShadow(weekCard));
@@ -179,7 +179,6 @@ void StudentRestaurantWidget::buildUi() {
     wl->addLayout(grid);
     cl->addWidget(weekCard);
 
-    // ── Today's meal status card ─────────────────────────────────────────────────
     auto* todayCard = new QFrame(contentWidget);
     todayCard->setStyleSheet("QFrame { background:white; border-radius:16px; border:none; }");
     todayCard->setGraphicsEffect(restShadow(todayCard));
