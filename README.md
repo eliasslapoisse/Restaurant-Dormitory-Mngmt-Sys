@@ -139,7 +139,7 @@ UDRMS/
 
 ## Class Architecture
 
-A full class diagram is available at [`uml/architecture.md`](uml/architecture.md) (renders natively on GitHub). A PlantUML version is also at [`uml/architecture.puml`](uml/architecture.puml).
+A full class diagram is available at [`uml/architecture.md`](uml/architecture.md) (renders natively on GitHub).
 
 #### GUI Layer
 
