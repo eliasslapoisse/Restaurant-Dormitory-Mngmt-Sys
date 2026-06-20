@@ -139,7 +139,7 @@ UDRMS/
 
 ## Class Architecture
 
-A PlantUML diagram covering the full domain model is available at [`uml/architecture.puml`](uml/architecture.puml). It includes all classes, structs, enums, and their key relationships.
+A full class diagram is available at [`uml/architecture.md`](uml/architecture.md) (renders natively on GitHub). A PlantUML version is also at [`uml/architecture.puml`](uml/architecture.puml).
 
 #### GUI Layer
 
