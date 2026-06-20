@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Screenshot 2026-06-14 123403.png" width="800" alt="UDRMS Banner">
+  <img src="screenshots/banner.png" width="800" alt="UDRMS Banner">
 </p>
 
 <h1 align="center">UDRMS — University Dormitory & Restaurant Management System</h1>
